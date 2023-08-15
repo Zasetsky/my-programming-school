@@ -1,12 +1,22 @@
 import { useState } from 'react';
 
 export const useLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [open, setOpen] = useState(false);
+  const [role, setRole] = useState('');
 
-  const handleLogin = () => {
-    // Ваш код для входа
+  const handleOpen = (selectedRole: string) => {
+    setRole(selectedRole);
+    setOpen(true);
   };
 
-  return { email, setEmail, password, setPassword, handleLogin };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const resetRole = () => {
+    setRole('');
+    setOpen(false);
+  };
+
+  return { open, role, handleOpen, handleClose, resetRole };
 };
