@@ -44,6 +44,10 @@ export const ThemeProvider = ({
       success: {
         main: themeColors.success.main,
       },
+      background: {
+        default: themeColors.background.default,
+        paper: themeColors.background.paper
+      },
       action: {
         active: themeColors.action.active,
         hover: themeColors.action.hover,

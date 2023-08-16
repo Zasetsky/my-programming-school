@@ -1,18 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from './assets/styles/theme/ThemeContext';
-import { MainPage } from './pages/MainPage';
+import { useTheme } from "@mui/material/styles";
+import { MainPage } from "./pages/MainPage";
 
 function App() {
+  const theme = useTheme();
+
   return (
-    <ThemeProvider>
+    <div style={{ backgroundColor: theme.palette.background.default, height: '100vh' }}>
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
           {/* Другие маршруты */}
         </Routes>
       </Router>
-    </ThemeProvider>
+    </div>
   );
 }
 

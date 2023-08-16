@@ -42,7 +42,7 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
             autoComplete="current-password"
           />
           <Button
-            type="submit" // Тип кнопки - submit, чтобы она отправляла форму
+            type="submit"
             fullWidth
             variant="contained"
             color="primary"
