@@ -1,0 +1,23 @@
+// MainPage.scss
+.main-page {
+  text-align: center;
+  &__title {
+    // Стили для заголовка
+  }
+
+  &__role-selection {
+    // Стили для блока выбора роли
+
+    &__button {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      background-color: black;
+    }
+  }
+
+  .registration-page,
+  .login-page {
+    // Общие стили для страниц регистрации и входа
+  }
+}

@@ -1,24 +1,37 @@
-import { Button, TextField, Container, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from "react";
+import { Button, TextField, Container, Typography } from "@mui/material";
+import { useRegistration } from "../hooks/useRegistration";
+import { submitRegistration } from "../api/registrationAPI";
 
-interface RegistrationPageProps {
+interface RegistrationComponentProps {
   resetRole: () => void;
 }
 
-const RegistrationPage = ({ resetRole }: RegistrationPageProps) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [subject, setSubject] = useState('');
-  const [name, setName] = useState('');
+const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    birthDate,
+    setBirthDate,
+    subject,
+    setSubject,
+    name,
+    setName,
+  } = useRegistration();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Здесь вы можете отправить данные на сервер или обработать иначе
+    submitRegistration({ email, password, birthDate, subject, name });
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      className="registration-component"
+    >
       <div>
         <Typography component="h1" variant="h5">
           Регистрация
@@ -97,4 +110,4 @@ const RegistrationPage = ({ resetRole }: RegistrationPageProps) => {
   );
 };
 
-export default RegistrationPage;
+export default RegistrationComponent;

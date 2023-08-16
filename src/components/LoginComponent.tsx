@@ -1,22 +1,24 @@
-import { Button, TextField, Container, Typography } from '@mui/material';
+import { Button, TextField, Container, Typography } from "@mui/material";
 
-interface LoginPageProps {
-  resetRole: () => void; // Объявление функции resetRole в пропсах
+interface LoginComponentProps {
+  resetRole: () => void;
 }
 
-const LoginPage = ({ resetRole }: LoginPageProps) => { // Деструктуризация пропсов
+const LoginComponent = ({ resetRole }: LoginComponentProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Здесь ваша логика обработки входа, если вход успешный, можно вызвать resetRole
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="login-component">
       <div>
         <Typography component="h1" variant="h5">
           Вход
         </Typography>
-        <form noValidate onSubmit={handleSubmit}> {/* Обработка события onSubmit */}
+        <form noValidate onSubmit={handleSubmit}>
+          {" "}
+          {/* Обработка события onSubmit */}
           <TextField
             variant="outlined"
             margin="normal"
@@ -48,9 +50,14 @@ const LoginPage = ({ resetRole }: LoginPageProps) => { // Деструктури
             Войти
           </Button>
         </form>
+        <Button onClick={resetRole} fullWidth variant="text">
+          {" "}
+          {/* Кнопка "назад" */}
+          Вернуться назад
+        </Button>
       </div>
     </Container>
   );
 };
 
-export default LoginPage;
+export default LoginComponent;
