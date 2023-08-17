@@ -3,14 +3,17 @@ import { Button } from "@mui/material";
 import { useLogin } from "../hooks/useLogin";
 import LoginComponent from "../components/LoginComponent";
 import RegistrationComponent from "../components/RegistrationComponent";
+import { StudentIcon, TeacherIcon, GuestIcon } from "../assets/icons/index";
 // import { useTheme as useAppTheme } from "../hooks/useTheme";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
+
 import "../assets/styles/components/main-page.scss";
 
 export const MainPage = () => {
   const { role, handleOpen, resetRole } = useLogin();
   // const { darkMode, setDarkMode } = useAppTheme();
-  const muiTheme = useMuiTheme();
+
+  const theme = useMuiTheme();
 
   // const toggleTheme = () => {
   //   // Функция для переключения темы
@@ -19,10 +22,6 @@ export const MainPage = () => {
 
   return (
     <div className="main-page">
-      <div
-        style={{ backgroundColor: muiTheme.palette.success.main }}
-        className="main-page--circle"
-      ></div>
       <h1 className="main-page__title">
         Добро пожаловать в школу программирования
       </h1>
@@ -44,28 +43,37 @@ export const MainPage = () => {
         <div className="main-page__role-selection">
           <p>Выберите свою роль:</p>
           <div className="button-row">
-            <Button
-              className="main-page__role-selection__button"
-              variant="contained"
-              onClick={() => handleOpen("учитель")}
-            >
-              Учитель
-            </Button>
-            <Button
-              variant="contained"
-              className="main-page__role-selection__button"
-              onClick={() => handleOpen("ученик")}
-            >
+            <div className="button-wrapper">
+              <Button
+                className="main-page__role-selection__button"
+                variant="contained"
+                onClick={() => handleOpen("ученик")}
+              >
+                <StudentIcon color={theme.palette.primary.contrastText} />
+              </Button>
               Ученик
-            </Button>
+            </div>
+            <div className="button-wrapper">
+              <Button
+                className="main-page__role-selection__button"
+                variant="contained"
+                onClick={() => handleOpen("учитель")}
+              >
+                <TeacherIcon color={theme.palette.primary.contrastText} />
+              </Button>
+              Учитель
+            </div>
           </div>
-          <Button
-            variant="contained"
-            className="main-page__role-selection__button"
-            onClick={() => handleOpen("гость")}
-          >
+          <div className="button-wrapper">
+            <Button
+              variant="contained"
+              className="main-page__role-selection__button"
+              onClick={() => handleOpen("гость")}
+            >
+              <GuestIcon color={theme.palette.primary.contrastText} />
+            </Button>
             Гость
-          </Button>
+          </div>
         </div>
       )}
     </div>

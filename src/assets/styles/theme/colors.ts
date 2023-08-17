@@ -40,7 +40,6 @@ export const lightThemeColors = {
     primary: "#000",
     secondary: "#333",
     disabled: "#666",
-    hint: "#999",
   },
   background: {
     default: "#fafafa",
