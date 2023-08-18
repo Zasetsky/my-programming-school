@@ -20,7 +20,6 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
           {" "}
           {/* Обработка события onSubmit */}
           <TextField
-            variant="outlined"
             margin="normal"
             required
             fullWidth
@@ -31,7 +30,6 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
             autoFocus
           />
           <TextField
-            variant="outlined"
             margin="normal"
             required
             fullWidth

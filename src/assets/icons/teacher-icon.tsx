@@ -4,7 +4,7 @@ interface IconsPops {
   color: string;
 }
 
-const StudentIcon: React.FC<IconsPops> = ({ color }) => (
+const TeacherIcon: React.FC<IconsPops> = ({ color }) => (
   <svg width="60" height="60" viewBox="0 0 60 60">
     {
       <svg
@@ -40,4 +40,4 @@ const StudentIcon: React.FC<IconsPops> = ({ color }) => (
   </svg>
 );
 
-export default StudentIcon;
+export default TeacherIcon;

@@ -1,9 +1,9 @@
 export const lightThemeColors = {
   mode: 'light' as const,
   primary: {
-    main: "#1976d2",
+    main: "#105278",
     light: "#4791db",
-    dark: "#115293",
+    dark: "#25416C",
     contrastText: "#fff",
   },
   secondary: {
@@ -31,7 +31,7 @@ export const lightThemeColors = {
     contrastText: "#000",
   },
   success: {
-    main: "#4caf50",
+    main: "#00ceaaf5",
     light: "#81c784",
     dark: "#388e3c",
     contrastText: "#000",
@@ -64,9 +64,9 @@ export const lightThemeColors = {
 export const darkThemeColors = {
   mode: 'dark' as const,
   primary: {
-    main: "#90caf9",
+    main: "#648dae",
     light: "#a6d4fa",
-    dark: "#648dae",
+    dark: "#055476f5",
     contrastText: "#000",
   },
   secondary: {
@@ -94,7 +94,7 @@ export const darkThemeColors = {
     contrastText: "#000",
   },
   success: {
-    main: "#81c784",
+    main: "#058264f5",
     light: "#a5d6a7",
     dark: "#66bb6a",
     contrastText: "#000",

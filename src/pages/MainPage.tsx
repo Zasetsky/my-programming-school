@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useLogin } from "../hooks/useLogin";
 import LoginComponent from "../components/LoginComponent";
 import RegistrationComponent from "../components/RegistrationComponent";
+import AvatarCircle from "../components/AvatarCircle";
 import { StudentIcon, TeacherIcon, GuestIcon } from "../assets/icons/index";
 // import { useTheme as useAppTheme } from "../hooks/useTheme";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
@@ -22,6 +23,8 @@ export const MainPage = () => {
 
   return (
     <div className="main-page">
+      <AvatarCircle />
+      <div className="main-page__circle"></div>
       <h1 className="main-page__title">
         Добро пожаловать в школу программирования
       </h1>
