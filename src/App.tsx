@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-import { MainPage } from "./pages/MainPage";
-import { getColorVariables } from "./assets/styles/theme/colorsVariables"
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import { MainPage } from './pages/MainPage';
+import { getColorVariables } from './assets/styles/theme/colorsVariables';
 
 function App() {
   const theme = useTheme();
@@ -10,11 +10,11 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-  
+
     Object.entries(colorVariables).forEach(([key, value]) => {
       root.style.setProperty(key, String(value)); // Приведение к строке
     });
-  
+
     return () => {
       // Опционально: очищаем переменные при размонтировании
       Object.keys(colorVariables).forEach((key) => {
@@ -24,7 +24,9 @@ function App() {
   }, [colorVariables]);
 
   return (
-    <div style={{ background: 'var(--background-default)', minHeight: "100vh" }}>
+    <div
+      style={{ background: 'var(--background-default)', minHeight: '100vh' }}
+    >
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />

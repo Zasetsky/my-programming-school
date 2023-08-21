@@ -8,10 +8,15 @@ export const useRegistration = () => {
   const [name, setName] = useState('');
 
   return {
-    email, setEmail,
-    password, setPassword,
-    birthDate, setBirthDate,
-    subject, setSubject,
-    name, setName
+    email,
+    setEmail,
+    password,
+    setPassword,
+    birthDate,
+    setBirthDate,
+    subject,
+    setSubject,
+    name,
+    setName,
   };
 };

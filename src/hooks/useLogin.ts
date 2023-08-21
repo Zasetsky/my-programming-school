@@ -19,18 +19,21 @@ export const useLogin = () => {
     setOpen(false);
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent, email: string, password: string) => {
-    e.preventDefault();
-    try {
-      const response = await login(email, password);
-      // Обработка успешного входа
-      // ...
-      resetRole(); // например, если вход успешен
-    } catch (error) {
-      // Обработка ошибки
-      // ...
-    }
-  }, [resetRole]);
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent, email: string, password: string) => {
+      e.preventDefault();
+      try {
+        const response = await login(email, password);
+        // Обработка успешного входа
+        // ...
+        resetRole(); // например, если вход успешен
+      } catch (error) {
+        // Обработка ошибки
+        // ...
+      }
+    },
+    [resetRole],
+  );
 
   return { open, role, handleOpen, handleClose, resetRole, handleSubmit };
 };

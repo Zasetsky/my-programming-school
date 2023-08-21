@@ -1,13 +1,13 @@
-import React from "react";
-import { Button } from "@mui/material";
-import { useLogin } from "../hooks/useLogin";
-import LoginComponent from "../components/LoginComponent";
-import RegistrationComponent from "../components/RegistrationComponent";
-import AvatarCircle from "../components/AvatarCircle";
-import { StudentIcon, TeacherIcon, GuestIcon } from "../assets/icons/index";
+import React from 'react';
+import { Button } from '@mui/material';
+import { useLogin } from '../hooks/useLogin';
+import LoginComponent from '../components/LoginComponent';
+import RegistrationComponent from '../components/RegistrationComponent';
+import AvatarCircle from '../components/AvatarCircle';
+import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
 // import { useTheme as useAppTheme } from "../hooks/useTheme";
 
-import "../assets/styles/components/main-page.scss";
+import '../assets/styles/components/main-page.scss';
 
 export const MainPage = () => {
   const { role, handleOpen, resetRole } = useLogin();
@@ -34,7 +34,7 @@ export const MainPage = () => {
           : "Переключить на темную тему"}
       </button> */}
       {role ? (
-        role === "гость" ? (
+        role === 'гость' ? (
           <RegistrationComponent resetRole={resetRole} />
         ) : (
           <LoginComponent resetRole={resetRole} />
@@ -47,7 +47,7 @@ export const MainPage = () => {
               <Button
                 className="main-page__role-selection__button"
                 variant="contained"
-                onClick={() => handleOpen("ученик")}
+                onClick={() => handleOpen('ученик')}
               >
                 <StudentIcon />
               </Button>
@@ -57,7 +57,7 @@ export const MainPage = () => {
               <Button
                 className="main-page__role-selection__button"
                 variant="contained"
-                onClick={() => handleOpen("учитель")}
+                onClick={() => handleOpen('учитель')}
               >
                 <TeacherIcon />
               </Button>
@@ -68,7 +68,7 @@ export const MainPage = () => {
             <Button
               variant="contained"
               className="main-page__role-selection__button"
-              onClick={() => handleOpen("гость")}
+              onClick={() => handleOpen('гость')}
             >
               <GuestIcon />
             </Button>

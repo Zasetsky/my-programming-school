@@ -1,7 +1,7 @@
-import React from "react";
-import { Button, TextField, Container, Typography } from "@mui/material";
-import { useRegistration } from "../hooks/useRegistration";
-import { submitRegistration } from "../api/registrationAPI";
+import React from 'react';
+import { Button, TextField, Container, Typography } from '@mui/material';
+import { useRegistration } from '../hooks/useRegistration';
+import { submitRegistration } from '../api/registrationAPI';
 
 interface RegistrationComponentProps {
   resetRole: () => void;

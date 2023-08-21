@@ -1,8 +1,8 @@
-import { createTheme } from "@mui/material/styles";
-import { lightThemeColors, darkThemeColors } from "./colors";
+import { createTheme } from '@mui/material/styles';
+import { lightThemeColors, darkThemeColors } from './colors';
 
 export const createAppTheme = (
-  themeColors: typeof lightThemeColors | typeof darkThemeColors
+  themeColors: typeof lightThemeColors | typeof darkThemeColors,
 ) => {
   return createTheme({
     palette: {

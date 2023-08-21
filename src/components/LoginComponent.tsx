@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Button, TextField, Container, Typography } from "@mui/material";
-import { useLogin } from "../hooks/useLogin";
-import "../assets/styles/components/login.scss"
+import React, { useState } from 'react';
+import { Button, TextField, Container, Typography } from '@mui/material';
+import { useLogin } from '../hooks/useLogin';
+import '../assets/styles/components/login.scss';
 
 interface LoginComponentProps {
   resetRole: () => void;
@@ -9,8 +9,8 @@ interface LoginComponentProps {
 
 const LoginComponent = ({ resetRole }: LoginComponentProps) => {
   const { handleSubmit } = useLogin();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
           variant="text"
           className="login__button login__button--back"
         >
-          {" "}
+          {' '}
           {/* Кнопка "назад" */}
           Вернуться назад
         </Button>

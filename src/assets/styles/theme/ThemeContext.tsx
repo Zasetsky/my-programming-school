@@ -1,7 +1,7 @@
-import React, { createContext, useState, ReactNode } from "react";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { lightThemeColors, darkThemeColors } from "./colors";
-import { createAppTheme } from "./createAppTheme";
+import React, { createContext, useState, ReactNode } from 'react';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { lightThemeColors, darkThemeColors } from './colors';
+import { createAppTheme } from './createAppTheme';
 
 type ThemeContextType = {
   darkMode: boolean;
@@ -9,7 +9,7 @@ type ThemeContextType = {
 };
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(
-  undefined
+  undefined,
 );
 
 type ThemeProviderProps = {

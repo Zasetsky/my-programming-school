@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const SchoolLogo: React.FC = () => (
   <svg width="150" height="150" viewBox="50 50 200 200">
