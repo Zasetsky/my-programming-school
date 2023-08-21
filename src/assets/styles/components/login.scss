@@ -1,16 +1,1 @@
-.login {
 
-  &__input {
-    border: none !important;
-    outline: none !important;
-    border-bottom: 1px solid #ccc;
-  
-    &:focus {
-      border-bottom: 2px solid var(--primary-main); // Цвет активного состояния, можно заменить на нужный
-    }
-  }
-
-  &__button {
-    width: 100%;
-  }
-}

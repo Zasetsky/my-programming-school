@@ -6,7 +6,7 @@ export const createAppTheme = (
 ) => {
   return createTheme({
     palette: {
-      mode: themeColors.mode, // light или dark
+      mode: themeColors.mode,
       primary: {
         main: themeColors.primary.main,
         light: themeColors.primary.light,

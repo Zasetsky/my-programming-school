@@ -1,3 +1,11 @@
 body {
   color: var(--text-primary);
 }
+
+.MuiInputBase-root:hover:not(.Mui-disabled):before {
+  border-color: var(--primary-main) !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary-main) !important;
+}

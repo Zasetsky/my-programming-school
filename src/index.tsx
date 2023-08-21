@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './assets/styles/main.scss';
 import { ThemeProvider } from './assets/styles/theme/ThemeContext';
 import 'normalize.css';
-import './assets/styles/main.scss';
 
 const rootElement = document.getElementById('root');
 

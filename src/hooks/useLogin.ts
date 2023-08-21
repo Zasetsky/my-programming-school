@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { login } from '../api/auth'; // Убедитесь, что путь к файлу с функцией login правильный
+import { login } from '../api/auth';
 
 export const useLogin = () => {
   const [open, setOpen] = useState(false);
