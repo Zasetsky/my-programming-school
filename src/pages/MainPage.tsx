@@ -6,15 +6,12 @@ import RegistrationComponent from "../components/RegistrationComponent";
 import AvatarCircle from "../components/AvatarCircle";
 import { StudentIcon, TeacherIcon, GuestIcon } from "../assets/icons/index";
 // import { useTheme as useAppTheme } from "../hooks/useTheme";
-import { useTheme as useMuiTheme } from "@mui/material/styles";
 
 import "../assets/styles/components/main-page.scss";
 
 export const MainPage = () => {
   const { role, handleOpen, resetRole } = useLogin();
   // const { darkMode, setDarkMode } = useAppTheme();
-
-  const theme = useMuiTheme();
 
   // const toggleTheme = () => {
   //   // Функция для переключения темы
@@ -52,7 +49,7 @@ export const MainPage = () => {
                 variant="contained"
                 onClick={() => handleOpen("ученик")}
               >
-                <StudentIcon color={theme.palette.primary.contrastText} />
+                <StudentIcon />
               </Button>
               Ученик
             </div>
@@ -62,7 +59,7 @@ export const MainPage = () => {
                 variant="contained"
                 onClick={() => handleOpen("учитель")}
               >
-                <TeacherIcon color={theme.palette.primary.contrastText} />
+                <TeacherIcon />
               </Button>
               Учитель
             </div>
@@ -73,7 +70,7 @@ export const MainPage = () => {
               className="main-page__role-selection__button"
               onClick={() => handleOpen("гость")}
             >
-              <GuestIcon color={theme.palette.primary.contrastText} />
+              <GuestIcon />
             </Button>
             Гость
           </div>

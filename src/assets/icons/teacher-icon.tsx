@@ -1,14 +1,10 @@
 import React from "react";
 
-interface IconsPops {
-  color: string;
-}
-
-const TeacherIcon: React.FC<IconsPops> = ({ color }) => (
+const TeacherIcon: React.FC = () => (
   <svg width="60" height="60" viewBox="0 0 60 60">
     {
       <svg
-        fill={color}
+        fill="var(--primary-contrastText)"
         version="1.1"
         id="Capa_1"
         xmlns="http://www.w3.org/2000/svg"
