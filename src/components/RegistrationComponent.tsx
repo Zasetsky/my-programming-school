@@ -1,5 +1,14 @@
 import React from 'react';
-import { Button, TextField, Container, Typography } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Container,
+  Typography,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
 import { useRegistration } from '../hooks/useRegistration';
 import { submitRegistration } from '../api/registrationAPI';
 
@@ -13,25 +22,19 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
     setEmail,
     password,
     setPassword,
-    birthDate,
-    setBirthDate,
-    subject,
-    setSubject,
-    name,
-    setName,
+    confirmPassword,
+    setConfirmPassword,
+    role,
+    setRole,
   } = useRegistration();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    submitRegistration({ email, password, birthDate, subject, name });
+    submitRegistration({ email, password, role });
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      className="registration-component"
-    >
+    <Container component="main" maxWidth="xs">
       <div>
         <Typography component="h1" variant="h5">
           Регистрация
@@ -39,19 +42,7 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
         <form onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Имя"
-            name="name"
-            autoFocus
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             id="email"
@@ -63,7 +54,7 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
           />
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="password"
@@ -75,30 +66,36 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
           />
           <TextField
             variant="outlined"
-            margin="normal"
+            margin="dense"
             required
             fullWidth
-            id="birthDate"
-            label="Дата рождения"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
+            name="confirmPassword"
+            label="Повторить пароль"
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
+          <FormControl fullWidth variant="outlined" margin="dense" required>
+            <InputLabel id="role-label">Ваша роль</InputLabel>
+            <Select
+              labelId="role-label"
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value as string)}
+              label="Ваша роль"
+            >
+              <MenuItem value="Учитель">Учитель</MenuItem>
+              <MenuItem value="Ученик">Ученик</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            style={{ marginTop: '8px' }}
+            type="submit"
             fullWidth
-            id="subject"
-            label="Предмет для обучения"
-            name="subject"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-          />
-          <Button type="submit" fullWidth variant="contained" color="primary">
+            variant="contained"
+            color="primary"
+          >
             Зарегистрироваться
           </Button>
         </form>
