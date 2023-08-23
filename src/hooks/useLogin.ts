@@ -2,8 +2,8 @@ import { useState, useCallback } from 'react';
 import { login } from '../api/auth';
 
 export const useLogin = () => {
-  const [open, setOpen] = useState(false);
-  const [role, setRole] = useState('');
+  const [open, setOpen] = useState<boolean>(false);
+  const [role, setRole] = useState<string>('');
 
   const handleOpen = (selectedRole: string) => {
     setRole(selectedRole);

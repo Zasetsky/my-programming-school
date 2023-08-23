@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import { MainPage } from './pages/MainPage';
+import { MainLoginPage } from './pages/MainLoginPage';
 import { getColorVariables } from './assets/styles/theme/colorsVariables';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
     >
       <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainLoginPage />} />
           {/* Другие маршруты */}
         </Routes>
       </Router>

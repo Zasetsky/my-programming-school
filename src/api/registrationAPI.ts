@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 export const submitRegistration = (formData: {
   email: string;
   password: string;
   role: string;
 }) => {
-  // Здесь вы можете отправить данные на сервер или обработать иначе
+  return axios.post('/api/register', formData);
 };

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
-import LoginComponent from '../components/LoginComponent';
-import RegistrationComponent from '../components/RegistrationComponent';
+import LoginComponent from '../components/auth/LoginComponent';
+import RegistrationComponent from '../components/auth/RegistrationComponent';
 import AvatarCircle from '../components/AvatarCircle';
 import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
 // import { useTheme as useAppTheme } from '../hooks/useTheme';
 
 import '../assets/styles/components/main-page.scss';
 
-export const MainPage = () => {
+export const MainLoginPage = () => {
   const { role, handleOpen, resetRole } = useLogin();
   // const { darkMode, setDarkMode } = useAppTheme();
 
