@@ -4,6 +4,9 @@ import { login } from '../api/auth';
 export const useLogin = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [role, setRole] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const handleOpen = (selectedRole: string) => {
     setRole(selectedRole);
@@ -12,6 +15,10 @@ export const useLogin = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const resetRole = useCallback(() => {
@@ -35,5 +42,19 @@ export const useLogin = () => {
     [resetRole],
   );
 
-  return { open, role, handleOpen, handleClose, resetRole, handleSubmit };
+  return {
+    open,
+    role,
+    showPassword,
+    password,
+    email,
+    setShowPassword,
+    handleOpen,
+    handleClose,
+    resetRole,
+    handleSubmit,
+    setEmail,
+    setPassword,
+    handleClickShowPassword,
+  };
 };

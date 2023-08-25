@@ -20,19 +20,20 @@ interface RegistrationComponentProps {
 const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
   const {
     email,
-    setEmail,
     password,
-    setPassword,
     confirmPassword,
-    setConfirmPassword,
     role,
-    setRole,
-    submitRegistration,
     isLoading,
     error,
     emailError,
+    roleError,
     passwordError,
     confirmPasswordError,
+    setRole,
+    submitRegistration,
+    setConfirmPassword,
+    setPassword,
+    setEmail,
   } = useRegistration();
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -65,6 +66,7 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
               name="email"
               autoComplete="email"
               value={email}
+              error={Boolean(emailError)}
               onChange={(e) => setEmail(e.target.value)}
             />
             {emailError && <FormHelperText>{emailError}</FormHelperText>}
@@ -85,6 +87,7 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
               label="Пароль"
               type="password"
               id="password"
+              error={Boolean(passwordError)}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -106,6 +109,7 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
               label="Повторить пароль"
               type="password"
               id="confirmPassword"
+              error={Boolean(confirmPasswordError)}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -114,7 +118,13 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
             )}
           </FormControl>
 
-          <FormControl fullWidth variant="outlined" margin="dense" required>
+          <FormControl
+            fullWidth
+            variant="outlined"
+            margin="dense"
+            required
+            error={Boolean(roleError)}
+          >
             <InputLabel id="role-label">Ваша роль</InputLabel>
             <Select
               labelId="role-label"
@@ -123,10 +133,10 @@ const RegistrationComponent = ({ resetRole }: RegistrationComponentProps) => {
               onChange={(e) => setRole(e.target.value as string)}
               label="Ваша роль"
             >
-              <MenuItem value="Учитель">Учитель</MenuItem>
               <MenuItem value="Ученик">Ученик</MenuItem>
+              <MenuItem value="Учитель">Учитель</MenuItem>
             </Select>
-            {error && role === '' && <FormHelperText>{error}</FormHelperText>}
+            {roleError && <FormHelperText>{roleError}</FormHelperText>}
           </FormControl>
           <Button
             style={{ marginTop: '8px' }}

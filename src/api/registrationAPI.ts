@@ -3,7 +3,10 @@ import axios from 'axios';
 export const submitRegistration = (formData: {
   email: string;
   password: string;
+  confirmPassword: string;
   role: string;
 }) => {
-  return axios.post('/api/register', formData);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL || '';
+  console.log(baseUrl);
+  return axios.post(`${baseUrl}/api/register`, formData);
 };

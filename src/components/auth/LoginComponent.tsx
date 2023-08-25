@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   TextField,
@@ -17,18 +17,19 @@ interface LoginComponentProps {
 }
 
 const LoginComponent = ({ resetRole }: LoginComponentProps) => {
-  const { handleSubmit } = useLogin();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPassword,
+    handleClickShowPassword,
+    handleSubmit,
+  } = useLogin();
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSubmit(e, email, password);
-  };
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
   };
 
   return (

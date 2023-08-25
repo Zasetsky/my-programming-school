@@ -8,6 +8,7 @@ export const useRegistration = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [role, setRole] = useState<string>('');
+  const [roleError, setRoleError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -47,7 +48,7 @@ export const useRegistration = () => {
     }
 
     if (!role) {
-      setError('Выберите вашу роль');
+      setRoleError('Выберите вашу роль');
       return;
     }
 
@@ -56,16 +57,22 @@ export const useRegistration = () => {
 
     try {
       const response: AxiosResponse<SuccessResponse> =
-        await submitRegistrationAPI({ email, password, role });
+        await submitRegistrationAPI({ email, password, confirmPassword, role });
       localStorage.setItem('token', response.data.token);
-      navigate('/');
+      navigate('/main');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const axiosError = err as AxiosError<ErrorResponse>;
-        setError(
-          axiosError.response?.data?.message ||
-            'Произошла ошибка при регистрации',
-        );
+        if (axiosError.response?.status === 422) {
+          setError(
+            'Пользователь с данным адресом электронной почты уже существует',
+          );
+        } else {
+          setError(
+            axiosError.response?.data?.message ||
+              'Произошла ошибка при регистрации',
+          );
+        }
       } else {
         setError('Произошла неизвестная ошибка');
       }
@@ -87,6 +94,7 @@ export const useRegistration = () => {
     isLoading,
     error,
     emailError,
+    roleError,
     passwordError,
     confirmPasswordError,
   };
