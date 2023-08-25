@@ -18,18 +18,18 @@ interface LoginComponentProps {
 
 const LoginComponent = ({ resetRole }: LoginComponentProps) => {
   const {
-    email,
-    setEmail,
+    login,
     password,
-    setPassword,
     showPassword,
+    setLogin,
+    setPassword,
     handleClickShowPassword,
     handleSubmit,
   } = useLogin();
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleSubmit(e, email, password);
+    handleSubmit(e, login, password);
   };
 
   return (
@@ -44,13 +44,13 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
             required
             variant="standard"
             fullWidth
-            id="email"
+            id="login"
             label="Адрес электронной почты\телефон"
-            name="email"
+            name="login"
             autoComplete="email"
             autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

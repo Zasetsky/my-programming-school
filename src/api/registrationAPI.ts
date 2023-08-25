@@ -7,6 +7,5 @@ export const submitRegistration = (formData: {
   role: string;
 }) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL || '';
-  console.log(baseUrl);
   return axios.post(`${baseUrl}/api/register`, formData);
 };

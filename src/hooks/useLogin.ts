@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
-import { login } from '../api/auth';
+import { auth } from '../api/auth';
 
 export const useLogin = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [role, setRole] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>('');
+  const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const handleOpen = (selectedRole: string) => {
@@ -27,19 +27,19 @@ export const useLogin = () => {
   }, []);
 
   const handleSubmit = useCallback(
-    async (e: React.FormEvent, email: string, password: string) => {
+    async (e: React.FormEvent, login: string, password: string) => {
       e.preventDefault();
       try {
-        const response = await login(email, password);
+        const response = await auth(login, password, role);
         // Обработка успешного входа
         // ...
-        resetRole(); // например, если вход успешен
+        resetRole();
       } catch (error) {
         // Обработка ошибки
         // ...
       }
     },
-    [resetRole],
+    [resetRole, role],
   );
 
   return {
@@ -47,13 +47,13 @@ export const useLogin = () => {
     role,
     showPassword,
     password,
-    email,
+    login,
     setShowPassword,
     handleOpen,
     handleClose,
     resetRole,
     handleSubmit,
-    setEmail,
+    setLogin,
     setPassword,
     handleClickShowPassword,
   };
