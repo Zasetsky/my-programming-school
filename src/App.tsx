@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { MainLoginPage } from './pages/MainLoginPage';
+import { MainPage } from './pages/MainPage';
 import { getColorVariables } from './assets/styles/theme/colorsVariables';
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainLoginPage />} />
-          {/* Другие маршруты */}
+          <Route path="/main/:uniqueID" element={<MainPage />} />
         </Routes>
       </Router>
     </div>

@@ -24,6 +24,7 @@ export const useRegistration = () => {
 
   interface SuccessResponse {
     token: string;
+    uniqueID: number;
   }
 
   const submitRegistration = async () => {
@@ -34,6 +35,12 @@ export const useRegistration = () => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (!emailPattern.test(email)) {
       setEmailError('Введите действительный адрес электронной почты');
+      return;
+    }
+
+    const validPasswordPattern = /^[A-Za-z0-9!@#$%^&*()_+,. -]+$/;
+    if (!validPasswordPattern.test(password)) {
+      setPasswordError('Пароль может содержать только латинские символы');
       return;
     }
 
@@ -58,8 +65,9 @@ export const useRegistration = () => {
     try {
       const response: AxiosResponse<SuccessResponse> =
         await submitRegistrationAPI({ email, password, confirmPassword, role });
+
       localStorage.setItem('token', response.data.token);
-      navigate('/main');
+      navigate(`/main/${response.data.uniqueID}`);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const axiosError = err as AxiosError<ErrorResponse>;

@@ -10,7 +10,7 @@ import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
 import '../assets/styles/components/main-page.scss';
 
 export const MainLoginPage = () => {
-  const { role, handleOpen, resetRole } = useLogin();
+  const loginHook = useLogin();
   // const { darkMode, setDarkMode } = useAppTheme();
 
   // const toggleTheme = () => {
@@ -33,11 +33,11 @@ export const MainLoginPage = () => {
           ? 'Переключить на светлую тему'
           : 'Переключить на темную тему'}
       </button> */}
-      {role ? (
-        role === 'гость' ? (
-          <RegistrationComponent resetRole={resetRole} />
+      {loginHook.role ? (
+        loginHook.role === 'Гость' ? (
+          <RegistrationComponent resetRole={loginHook.resetRole} />
         ) : (
-          <LoginComponent resetRole={resetRole} />
+          <LoginComponent {...loginHook} />
         )
       ) : (
         <div className="main-page__role-selection">
@@ -47,7 +47,7 @@ export const MainLoginPage = () => {
               <Button
                 className="main-page__role-selection__button"
                 variant="contained"
-                onClick={() => handleOpen('ученик')}
+                onClick={() => loginHook.handleOpen('Ученик')}
               >
                 <StudentIcon />
               </Button>
@@ -57,7 +57,7 @@ export const MainLoginPage = () => {
               <Button
                 className="main-page__role-selection__button"
                 variant="contained"
-                onClick={() => handleOpen('учитель')}
+                onClick={() => loginHook.handleOpen('Учитель')}
               >
                 <TeacherIcon />
               </Button>
@@ -68,7 +68,7 @@ export const MainLoginPage = () => {
             <Button
               variant="contained"
               className="main-page__role-selection__button"
-              onClick={() => handleOpen('гость')}
+              onClick={() => loginHook.handleOpen('Гость')}
             >
               <GuestIcon />
             </Button>

@@ -10,23 +10,42 @@ import {
 import PersonIcon from '@mui/icons-material/Person';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useLogin } from '../../hooks/useLogin';
 
+// Типы должны соответствовать тем, которые возвращает хук useLogin
 interface LoginComponentProps {
+  open: boolean;
+  role: string;
+  showPassword: boolean;
+  password: string;
+  login: string;
+  errorMessage: string | null;
+  invalidFields: { login?: boolean; password?: boolean };
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+  handleOpen: (selectedRole: string) => void;
+  handleClose: () => void;
   resetRole: () => void;
+  handleSubmit: (
+    e: React.FormEvent,
+    login: string,
+    password: string,
+  ) => Promise<void>;
+  setLogin: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  handleClickShowPassword: () => void;
 }
 
-const LoginComponent = ({ resetRole }: LoginComponentProps) => {
-  const {
-    login,
-    password,
-    showPassword,
-    setLogin,
-    setPassword,
-    handleClickShowPassword,
-    handleSubmit,
-  } = useLogin();
-
+const LoginComponent: React.FC<LoginComponentProps> = ({
+  login,
+  password,
+  showPassword,
+  errorMessage,
+  invalidFields,
+  setLogin,
+  setPassword,
+  handleClickShowPassword,
+  handleSubmit,
+  resetRole,
+}) => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSubmit(e, login, password);
@@ -38,6 +57,7 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
         <Typography component="h1" variant="h5">
           Вход
         </Typography>
+        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
         <form noValidate onSubmit={handleFormSubmit}>
           <TextField
             margin="normal"
@@ -49,6 +69,7 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
             name="login"
             autoComplete="email"
             autoFocus
+            error={invalidFields.login}
             value={login}
             onChange={(e) => setLogin(e.target.value)}
             InputProps={{
@@ -71,6 +92,7 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
             type={showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
+            error={invalidFields.password}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{
@@ -90,7 +112,15 @@ const LoginComponent = ({ resetRole }: LoginComponentProps) => {
             Войти
           </Button>
         </form>
-        <Button onClick={resetRole} fullWidth variant="text">
+        <Button
+          onClick={() => {
+            resetRole();
+            setLogin('');
+            setPassword('');
+          }}
+          fullWidth
+          variant="text"
+        >
           {' '}
           {/* Кнопка "назад" */}
           Вернуться назад
