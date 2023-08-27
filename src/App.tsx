@@ -1,38 +1,17 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
-import { MainLoginPage } from './pages/MainLoginPage';
-import { MainPage } from './pages/MainPage';
-import { getColorVariables } from './assets/styles/theme/colorsVariables';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
+import { useColorVariables } from './hooks/useColorVariables';
 
 function App() {
-  const theme = useTheme();
-  const colorVariables = getColorVariables(theme);
-
-  useEffect(() => {
-    const root = document.documentElement;
-
-    Object.entries(colorVariables).forEach(([key, value]) => {
-      root.style.setProperty(key, String(value)); // Приведение к строке
-    });
-
-    return () => {
-      // Опционально: очищаем переменные при размонтировании
-      Object.keys(colorVariables).forEach((key) => {
-        root.style.removeProperty(key);
-      });
-    };
-  }, [colorVariables]);
+  useColorVariables();
 
   return (
     <div
       style={{ background: 'var(--background-default)', minHeight: '100vh' }}
     >
       <Router>
-        <Routes>
-          <Route path="/" element={<MainLoginPage />} />
-          <Route path="/main/:uniqueID" element={<MainPage />} />
-        </Routes>
+        <AppRoutes />
       </Router>
     </div>
   );

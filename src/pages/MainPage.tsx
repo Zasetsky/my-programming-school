@@ -1,13 +1,11 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { RootState } from '../state/rootState';
+import { useAuth } from '../hooks/useAuth'; // Импорт хука
 
 export const MainPage = () => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  ); // Указание типа
+  const { isAuthenticated, token } = useAuth();
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !token) {
     return <Navigate to="/" />;
   }
 

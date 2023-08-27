@@ -56,6 +56,7 @@ export const useLogin = () => {
 
     try {
       const response = await auth(login, password, role);
+
       // Сохраняем токен в localStorage
       localStorage.setItem('token', response.token);
 
