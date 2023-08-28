@@ -57,8 +57,8 @@ export const useLogin = () => {
     try {
       const response = await auth(login, password, role);
 
-      // Сохраняем токен в localStorage
-      localStorage.setItem('token', response.token);
+      // Сохраняем isAuthenticated в localStorage
+      localStorage.setItem('isAuthenticated', 'true');
 
       // Сбрасываем сообщения об ошибках и неверные поля, если они есть
       setErrorMessage(null);
@@ -66,6 +66,9 @@ export const useLogin = () => {
 
       // Перенаправляем пользователя на его уникальную страницу
       navigate(`/main/${response.uniqueID}`);
+
+      // Сохраняем uniqueID в localStorage
+      localStorage.setItem('uniqueID', response.uniqueID.toString());
     } catch (error) {
       if (error && typeof error === 'object' && 'response' in error) {
         const errObj = error as {

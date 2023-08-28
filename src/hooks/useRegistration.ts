@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { submitRegistration as submitRegistrationAPI } from '../api/registrationAPI';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const useRegistration = () => {
@@ -20,11 +20,6 @@ export const useRegistration = () => {
 
   interface ErrorResponse {
     message: string;
-  }
-
-  interface SuccessResponse {
-    token: string;
-    uniqueID: number;
   }
 
   const submitRegistration = async () => {
@@ -63,11 +58,19 @@ export const useRegistration = () => {
     setError(null);
 
     try {
-      const response: AxiosResponse<SuccessResponse> =
-        await submitRegistrationAPI({ email, password, confirmPassword, role });
+      const response = await submitRegistrationAPI({
+        email,
+        password,
+        confirmPassword,
+        role,
+      });
 
-      localStorage.setItem('token', response.data.token);
-      navigate(`/main/${response.data.uniqueID}`);
+      // Сохраняем isAuthenticated в localStorage
+      localStorage.setItem('isAuthenticated', 'true');
+      // Сохраняем uniqueID в localStorage
+      localStorage.setItem('uniqueID', response.uniqueID.toString());
+
+      navigate(`/main/${response.uniqueID}`);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const axiosError = err as AxiosError<ErrorResponse>;
