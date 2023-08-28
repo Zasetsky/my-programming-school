@@ -8,8 +8,8 @@ import '../assets/styles/components/main-page.scss';
 export const MainPage = () => {
   const buttons = [
     { icon: <CheckList />, url: '/home' },
-    { icon: <PaymentIcon />, url: '/settings' },
     { icon: <Homework />, url: '/profile' },
+    { icon: <PaymentIcon />, url: '/settings' },
   ];
 
   return (
