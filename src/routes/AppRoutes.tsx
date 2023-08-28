@@ -21,7 +21,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/main/:uniqueID"
+        path="/main/*"
         element={<ProtectedRoute element={<MainPage />} redirectTo="/" />}
       />
     </Routes>

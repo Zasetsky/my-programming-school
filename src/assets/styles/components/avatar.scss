@@ -1,0 +1,30 @@
+.avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__circle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+    background: var(--background-default);
+    border: 5px solid var(--success-main);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    top: 65px;
+  }
+
+  &__background {
+    position: absolute;
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    background-color: var(--primary-main);
+    top: -330px;
+  }
+}

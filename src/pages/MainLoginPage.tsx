@@ -3,36 +3,35 @@ import { Button } from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
 import LoginComponent from '../components/auth/LoginComponent';
 import RegistrationComponent from '../components/auth/RegistrationComponent';
-import AvatarCircle from '../components/AvatarCircle';
+import Avatar from '../components/AvatarComponent';
 import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
-// import { useTheme as useAppTheme } from '../hooks/useTheme';
+import { useTheme as useAppTheme } from '../hooks/useTheme';
 
-import '../assets/styles/components/main-page.scss';
+import '../assets/styles/components/main-login-page.scss';
 
 export const MainLoginPage = () => {
   const loginHook = useLogin();
-  // const { darkMode, setDarkMode } = useAppTheme();
+  const { darkMode, setDarkMode } = useAppTheme();
 
-  // const toggleTheme = () => {
-  //   // Функция для переключения темы
-  //   setDarkMode(!darkMode);
-  // };
+  const toggleTheme = () => {
+    // Функция для переключения темы
+    setDarkMode(!darkMode);
+  };
 
   return (
-    <div className="main-page">
-      <AvatarCircle />
-      <div className="main-page__circle"></div>
-      <h1 className="main-page__title">
+    <div className="main-login-page">
+      <Avatar />
+      <h1 className="main-login-page__title">
         Добро пожаловать в школу программирования
       </h1>
-      {/* <button
-        className="main-page__role-selection__button"
+      <button
+        className="main-login-page__role-selection__button"
         onClick={toggleTheme}
       >
         {darkMode
           ? 'Переключить на светлую тему'
           : 'Переключить на темную тему'}
-      </button> */}
+      </button>
       {loginHook.role ? (
         loginHook.role === 'Гость' ? (
           <RegistrationComponent resetRole={loginHook.resetRole} />
@@ -40,12 +39,12 @@ export const MainLoginPage = () => {
           <LoginComponent {...loginHook} />
         )
       ) : (
-        <div className="main-page__role-selection">
+        <div className="main-login-page__role-selection">
           <p>Выберите свою роль:</p>
           <div className="button-row">
             <div className="button-wrapper">
               <Button
-                className="main-page__role-selection__button"
+                className="main-login-page__role-selection__button"
                 variant="contained"
                 onClick={() => loginHook.handleOpen('Ученик')}
               >
@@ -55,7 +54,7 @@ export const MainLoginPage = () => {
             </div>
             <div className="button-wrapper">
               <Button
-                className="main-page__role-selection__button"
+                className="main-login-page__role-selection__button"
                 variant="contained"
                 onClick={() => loginHook.handleOpen('Учитель')}
               >
@@ -67,7 +66,7 @@ export const MainLoginPage = () => {
           <div className="button-wrapper">
             <Button
               variant="contained"
-              className="main-page__role-selection__button"
+              className="main-login-page__role-selection__button"
               onClick={() => loginHook.handleOpen('Гость')}
             >
               <GuestIcon />
