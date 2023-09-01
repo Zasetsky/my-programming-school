@@ -11,7 +11,7 @@ import {
   InputLabel,
   CircularProgress,
 } from '@mui/material';
-import { useRegistration } from '../../hooks/useRegistration';
+import { useRegistration } from '../../hooks/auth/useRegistration';
 
 interface RegistrationComponentProps {
   resetRole: () => void;

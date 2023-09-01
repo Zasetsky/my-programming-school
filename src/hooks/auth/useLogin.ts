@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { auth } from '../api/auth';
+import { auth } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 
 export const useLogin = () => {

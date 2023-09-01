@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import { useLogin } from '../hooks/useLogin';
+import { useLogin } from '../hooks/auth/useLogin';
 import LoginComponent from '../components/auth/LoginComponent';
 import RegistrationComponent from '../components/auth/RegistrationComponent';
 import Avatar from '../components/AvatarComponent';
 import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
-import { useTheme as useAppTheme } from '../hooks/useTheme';
+import { useTheme as useAppTheme } from '../hooks/theme/useTheme';
 
 import '../assets/styles/components/main-login-page.scss';
 
@@ -50,7 +50,7 @@ export const MainLoginPage = () => {
               >
                 <StudentIcon />
               </Button>
-              Ученик
+              <span>Ученик</span>
             </div>
             <div className="button-wrapper">
               <Button
@@ -60,7 +60,7 @@ export const MainLoginPage = () => {
               >
                 <TeacherIcon />
               </Button>
-              Учитель
+              <span>Учитель</span>
             </div>
           </div>
           <div className="button-wrapper">
@@ -71,7 +71,7 @@ export const MainLoginPage = () => {
             >
               <GuestIcon />
             </Button>
-            Регистрация
+            <span>Регистрация</span>
           </div>
         </div>
       )}

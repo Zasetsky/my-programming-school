@@ -11,7 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-// Типы должны соответствовать тем, которые возвращает хук useLogin
+// Типы, которые возвращает хук useLogin
 interface LoginComponentProps {
   open: boolean;
   role: string;

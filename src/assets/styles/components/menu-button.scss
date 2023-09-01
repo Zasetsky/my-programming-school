@@ -1,0 +1,9 @@
+.menu-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &--name {
+    width: max-content;
+  }
+}

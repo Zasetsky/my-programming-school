@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { getColorVariables } from '../assets/styles/theme/colorsVariables';
+import { getColorVariables } from '../../assets/styles/theme/colorsVariables';
 
 export const useColorVariables = () => {
   const theme = useTheme();

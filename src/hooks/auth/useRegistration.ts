@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { submitRegistration as submitRegistrationAPI } from '../api/registrationAPI';
+import { submitRegistration as submitRegistrationAPI } from '../../api/registrationAPI';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
