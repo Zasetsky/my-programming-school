@@ -1,9 +1,12 @@
 import React from 'react';
 import Avatar from '../components/AvatarComponent';
 import MenuButtonComponent from '../components/main/MenuButtonComponent';
-import { CheckList, Homework } from '../assets/icons/index';
+import { Homework } from '../assets/icons/index';
 import PaymentIcon from '@mui/icons-material/Payment';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SettingsIcon from '@mui/icons-material/Settings';
+// import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+// import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import '../assets/styles/components/main-page.scss';
 
 export const MainPage = () => {
@@ -11,12 +14,18 @@ export const MainPage = () => {
 
   const buttons = [
     {
-      icon: <CheckList />,
-      url: `/subjects/${uniqueID}`,
+      icon: <LibraryBooksIcon />,
+      url: `/modules/${uniqueID}`,
       name: 'Модули и оценки',
     },
     { icon: <Homework />, url: '/homework', name: 'Домашняя работа' },
     { icon: <PaymentIcon />, url: '/payment', name: 'Оплата' },
+    // { icon: <CastForEducationIcon />, url: '/teacher', name: 'Найти учителя' },
+    // {
+    //   icon: <NoteAddIcon />,
+    //   url: `/subjects/${uniqueID}`,
+    //   name: 'Добавить предмет',
+    // },
     { icon: <SettingsIcon />, url: '/settings', name: 'Настройки' },
   ];
 

@@ -1,19 +1,18 @@
 .main-page {
   &__buttons-container {
     margin-top: 300px;
-    display: flex;
+    display: grid;
+    justify-items: center;
     align-items: center;
-    justify-content: center;
   }
 
   &__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px 50px;
   }
 
   &__button-item {
-    flex-basis: calc(33.333% - 20px);
-    margin: 0 10px 50px;
+    // стили для каждой кнопки, если они нужны
   }
 }

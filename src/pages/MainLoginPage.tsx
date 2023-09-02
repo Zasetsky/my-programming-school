@@ -7,7 +7,7 @@ import Avatar from '../components/AvatarComponent';
 import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
 import { useTheme as useAppTheme } from '../hooks/theme/useTheme';
 
-import '../assets/styles/components/main-login-page.scss';
+import '../assets/styles/components/auth/main-login-page.scss';
 
 export const MainLoginPage = () => {
   const loginHook = useLogin();

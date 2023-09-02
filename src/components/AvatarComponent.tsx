@@ -2,7 +2,7 @@ import React from 'react';
 import { SchoolLogo } from '../assets/icons/index';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { useAuth } from '../hooks/auth/useAuth';
-import '../assets/styles/components/avatar.scss';
+import '../assets/styles/components/auth/avatar.scss';
 
 const Avatar: React.FC = () => {
   const { isAuthenticated } = useAuth();

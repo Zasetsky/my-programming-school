@@ -66,5 +66,22 @@ export const createAppTheme = (
         activatedOpacity: themeColors.action.activatedOpacity,
       },
     },
+    typography: {
+      fontFamily: '"Open Sans", sans-serif',
+      // fontSize: 14, // Основной размер шрифта
+      // fontWeightLight: 300, // Вес шрифта для 'light'
+      // fontWeightRegular: 400, // Вес шрифта для 'regular'
+      // fontWeightMedium: 500, // Вес шрифта для 'medium'
+      // fontWeightBold: 700, // Вес шрифта для 'bold'
+      // h1: {
+      //   fontSize: '2rem',
+      //   fontWeight: 500,
+      // },
+      // h2: {
+      //   fontSize: '1.5rem',
+      //   fontWeight: 500,
+      // },
+      // и так далее...
+    },
   });
 };
