@@ -66,6 +66,11 @@ export const createAppTheme = (
         activatedOpacity: themeColors.action.activatedOpacity,
       },
     },
+
+    customColors: {
+      highlight: themeColors.custom.highlight,
+    },
+
     typography: {
       fontFamily: '"Open Sans", sans-serif',
       // fontSize: 14, // Основной размер шрифта

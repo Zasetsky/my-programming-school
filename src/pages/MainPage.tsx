@@ -7,10 +7,19 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SettingsIcon from '@mui/icons-material/Settings';
 // import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 // import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import { useTheme as useAppTheme } from '../hooks/theme/useTheme';
+
 import '../assets/styles/components/main-page.scss';
 
 export const MainPage = () => {
   const uniqueID = localStorage.getItem('uniqueID') || '';
+
+  const { darkMode, setDarkMode } = useAppTheme();
+
+  const toggleTheme = () => {
+    // Функция для переключения темы
+    setDarkMode(!darkMode);
+  };
 
   const buttons = [
     {
@@ -32,6 +41,14 @@ export const MainPage = () => {
   return (
     <div className="main-page">
       <Avatar />
+      <button
+        className="main-login-page__role-selection__button"
+        onClick={toggleTheme}
+      >
+        {darkMode
+          ? 'Переключить на светлую тему'
+          : 'Переключить на темную тему'}
+      </button>
       <div className="main-page__buttons-container">
         <div className="main-page__buttons">
           {buttons.map((button, index) => (

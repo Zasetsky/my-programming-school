@@ -49,4 +49,6 @@ export const getColorVariables = (theme: Theme) => ({
   '--action-focus': theme.palette.action.focus,
   '--action-focusOpacity': theme.palette.action.focusOpacity,
   '--action-activatedOpacity': theme.palette.action.activatedOpacity,
+
+  '--custom-highlight': theme.customColors.highlight,
 });

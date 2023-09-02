@@ -1,16 +1,16 @@
 export const lightThemeColors = {
   mode: 'light' as const,
   primary: {
-    main: '#105278',
-    light: '#417DA1',
-    dark: '#273F67',
+    main: '#105278', // оставляем как есть
+    light: '#407DA1',
+    dark: '#003552',
     contrastText: '#fafafa',
   },
   secondary: {
-    main: '#FFA07A',
-    light: '#FFBAA5',
-    dark: '#FF8F5F',
-    contrastText: '#303030',
+    main: '#FF9E80', // коралловый
+    light: '#FFC1A1',
+    dark: '#C6814B',
+    contrastText: '#000000',
   },
   error: {
     main: '#f44336',
@@ -58,20 +58,23 @@ export const lightThemeColors = {
     focusOpacity: 0.12,
     activatedOpacity: 0.24,
   },
+  custom: {
+    highlight: '#F2F2F2', // немного светлее
+  },
 };
 
 export const darkThemeColors = {
   mode: 'dark' as const,
   primary: {
-    main: '#648dae',
-    light: '#273F67',
-    dark: '#a6d4fa',
-    contrastText: '#303030',
+    main: '#90CAF9', // Контрастный цвет для #105278
+    light: '#BBDEFB',
+    dark: '#64B5F6',
+    contrastText: '#303030', // Тёмный текст будет хорошо виден на светлом фоне
   },
   secondary: {
-    main: '#f48fb1',
-    light: '#f5b1d1',
-    dark: '#aa647b',
+    main: '#FFAB91', // светло-коралловый
+    light: '#FFDDC1',
+    dark: '#C97B71',
     contrastText: '#303030',
   },
   error: {
@@ -120,5 +123,9 @@ export const darkThemeColors = {
     focus: 'rgba(255, 255, 255, 0.12)',
     focusOpacity: 0.12,
     activatedOpacity: 0.24,
+  },
+
+  custom: {
+    highlight: '#424242', // немного темнее
   },
 };

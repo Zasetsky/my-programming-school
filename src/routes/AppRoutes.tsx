@@ -26,7 +26,7 @@ const AppRoutes = () => {
         element={<ProtectedRoute element={<MainPage />} redirectTo="/" />}
       />
       <Route
-        path={`/modules/${uniqueID}`}
+        path={`/modules/*`}
         element={<ProtectedRoute element={<SubjectsPage />} redirectTo="/" />}
       />
       {/* <Route

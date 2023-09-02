@@ -26,9 +26,9 @@
     align-self: flex-end;
   }
   &__module {
-    background-color: rgba(0, 0, 0, 0.05); // Цвет фона для выделения
-    padding: 10px; // Отступы внутри блока
-    border-radius: 5px; // Скругление углов
+    background-color: var(--custom-highlight);
+    padding: 10px;
+    border-radius: 5px;
     margin: 10px 0;
   }
 }
