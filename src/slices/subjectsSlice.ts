@@ -32,7 +32,7 @@ const initialState: SubjectsState = {
           name: 'Введение в HTML2',
           totalLessonCount: 4,
           completedLessonCount: 2,
-          status: 'unpaid',
+          status: 'paid',
           startDate: '2023-09-01',
           endDate: '2023-10-01',
           grade: 'not_set',

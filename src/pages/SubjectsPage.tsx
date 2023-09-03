@@ -27,7 +27,7 @@ const SubjectsPage: React.FC = () => {
         <h1>Модули и оценки</h1>
       </div>
 
-      <BackButton top={'16%'} />
+      <BackButton top={'110px'} />
 
       {/* <AddSubjectDialog
         open={dialogOpen}

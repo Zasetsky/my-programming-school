@@ -5,6 +5,7 @@ import { Homework } from '../assets/icons/index';
 import PaymentIcon from '@mui/icons-material/Payment';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 // import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 // import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { useTheme as useAppTheme } from '../hooks/theme/useTheme';
@@ -29,7 +30,7 @@ export const MainPage = () => {
     },
     { icon: <Homework />, url: '/homework', name: 'Домашняя работа' },
     { icon: <PaymentIcon />, url: '/payment', name: 'Оплата' },
-    // { icon: <CastForEducationIcon />, url: '/teacher', name: 'Найти учителя' },
+    { icon: <ExitToAppIcon />, url: '', name: 'Выход' },
     // {
     //   icon: <NoteAddIcon />,
     //   url: `/subjects/${uniqueID}`,

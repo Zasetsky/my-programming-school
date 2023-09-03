@@ -54,7 +54,7 @@ const ModulesPage: React.FC = () => {
         </div>
       </div>
 
-      <BackButton top={'18%'} />
+      <BackButton top={'130px'} />
       {Array.isArray(modules) &&
         modules.map((module: Module) => (
           <Accordion
