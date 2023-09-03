@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Subject } from '../components/subjects/types';
-import { Module } from '../components/modules/types';
 
 interface SubjectsState {
   subjects: Subject[];
@@ -9,9 +8,11 @@ interface SubjectsState {
 const initialState: SubjectsState = {
   subjects: [
     {
+      id: 'modules-web',
       name: 'Web разработка',
       modules: [
         {
+          id: '3214321514213',
           name: 'Введение в HTML',
           totalLessonCount: 4,
           completedLessonCount: 2,
@@ -35,22 +36,11 @@ const subjectsSlice = createSlice({
   initialState,
   reducers: {
     addSubject: (state, action: PayloadAction<string>) => {
-      state.subjects.push({ name: action.payload, modules: [] });
-    },
-    addModuleToSubject: (
-      state,
-      action: PayloadAction<{ subjectName: string; module: Module }>,
-    ) => {
-      const subject = state.subjects.find(
-        (s) => s.name === action.payload.subjectName,
-      );
-      if (subject) {
-        subject.modules.push(action.payload.module);
-      }
+      state.subjects.push({ id: 'id', name: action.payload, modules: [] });
     },
   },
 });
 
-export const { addSubject, addModuleToSubject } = subjectsSlice.actions;
+export const { addSubject } = subjectsSlice.actions;
 
 export default subjectsSlice.reducer;

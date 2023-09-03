@@ -1,0 +1,17 @@
+.modules-page {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  // &__card {
+  //   margin-bottom: 20px;
+  // }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

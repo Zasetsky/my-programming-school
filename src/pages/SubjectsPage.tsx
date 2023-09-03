@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
-// import { Button } from '@mui/material';
+import { Card, CardContent } from '@mui/material';
 // import AddSubjectDialog from '../components/subjects/AddSubjectDialog';
 import SubjectCard from '../components/subjects/SubjectCard';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
@@ -31,10 +31,19 @@ const SubjectsPage: React.FC = () => {
         setOpen={setDialogOpen}
         addSubject={handleAddSubject}
       /> */}
+
       <div className="subject-page__cards">
-        {subjects.map((subject, index) => (
-          <SubjectCard key={index} subject={subject} />
-        ))}
+        {subjects.length > 0 ? (
+          subjects.map((subject, index) => (
+            <SubjectCard key={index} subject={subject} />
+          ))
+        ) : (
+          <div className="subject-page__empty-message">
+            <Card>
+              <CardContent>У вас пока нет тем для обучения.</CardContent>
+            </Card>
+          </div>
+        )}
       </div>
       {/* <Button
         variant="contained"

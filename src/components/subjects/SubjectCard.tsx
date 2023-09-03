@@ -7,6 +7,7 @@ import {
   LinearProgress,
 } from '@mui/material';
 import { Subject } from './types';
+import { useNavigate } from 'react-router-dom';
 
 import '../../assets/styles/components/subject-card.scss';
 
@@ -15,13 +16,20 @@ interface SubjectCardProps {
 }
 
 const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
+  const navigate = useNavigate();
+
   const lastModule =
     subject.modules.length > 0
       ? subject.modules[subject.modules.length - 1]
       : null;
 
   const shouldShowNextLesson =
-    lastModule && lastModule.status === 'paid' && lastModule.nextLessonDate; // Добавьте логику для проверки, что дата не равна прошлому уроку
+    lastModule && lastModule.status === 'paid' && lastModule.nextLessonDate; // Добавить логику для проверки, что дата не равна прошлому
+
+  const handleDetailsClick = () => {
+    const uniqueID = localStorage.getItem('uniqueID') || '';
+    navigate(`/${subject.id}/${uniqueID}`);
+  };
 
   return (
     <Card className="subject-card">
@@ -65,7 +73,11 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
             )}
           </div>
         )}
-        <Button variant="text" className="subject-card__button">
+        <Button
+          variant="text"
+          className="subject-card__button"
+          onClick={handleDetailsClick}
+        >
           Подробнее
         </Button>
       </CardContent>

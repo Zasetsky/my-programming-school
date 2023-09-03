@@ -1,20 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../redux/rootReducer';
 import { Module } from '../components/modules/types';
-import { addModuleToSubject } from './subjectsSlice'; // Импортируем из subjectsSlice
 
 export const addModuleToSubjectAsync = createAsyncThunk(
   'modules/addModuleToSubject',
-  async (
-    payload: { subjectName: string; module: Module },
-    { dispatch, getState },
-  ) => {
+  async (payload: { subjectId: string; module: Module }, { getState }) => {
     const state: RootState = getState() as RootState;
     const subject = state.subjects.subjects.find(
-      (s) => s.name === payload.subjectName,
+      (s) => s.id === payload.subjectId,
     );
     if (subject) {
-      dispatch(addModuleToSubject(payload)); // Используем из subjectsSlice
+      subject.modules.push(payload.module);
     }
   },
 );
@@ -25,9 +21,18 @@ const modulesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(addModuleToSubjectAsync.fulfilled, (state, action) => {
-      // тут можно обновить состояние, если это нужно
+      // Здесь можно обновить состояние, если нужно
     });
   },
 });
+
+// Селектор для получения модулей конкретного предмета
+export const selectModulesBySubjectId = (
+  state: RootState,
+  subjectId: string,
+) => {
+  const subject = state.subjects.subjects.find((s) => s.id === subjectId);
+  return subject ? subject.modules : [];
+};
 
 export default modulesSlice.reducer;

@@ -5,6 +5,7 @@ import GuestOnlyRoute from './GuestOnlyRoute';
 import { MainLoginPage } from '../pages/MainLoginPage';
 import { MainPage } from '../pages/MainPage';
 import SubjectsPage from '../pages/SubjectsPage';
+import ModulesPage from '../pages/ModulesPage';
 
 const AppRoutes = () => {
   // Извлекаем uniqueID из localStorage
@@ -22,12 +23,16 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/main/*"
+        path="/main/:uniqueID"
         element={<ProtectedRoute element={<MainPage />} redirectTo="/" />}
       />
       <Route
-        path={`/modules/*`}
+        path="/modules/:uniqueID"
         element={<ProtectedRoute element={<SubjectsPage />} redirectTo="/" />}
+      />
+      <Route
+        path="/:subjectId/:uniqueID"
+        element={<ProtectedRoute element={<ModulesPage />} redirectTo="/" />}
       />
       {/* <Route
         path="/main/homework"
