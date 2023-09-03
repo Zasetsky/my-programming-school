@@ -5,6 +5,7 @@ import { Card, CardContent } from '@mui/material';
 // import AddSubjectDialog from '../components/subjects/AddSubjectDialog';
 import SubjectCard from '../components/subjects/SubjectCard';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import BackButton from '../components/BackButton';
 // import { addSubject } from '../slices/subjectsSlice';
 
 import '../assets/styles/components/subject-page.scss';
@@ -25,6 +26,8 @@ const SubjectsPage: React.FC = () => {
         <LibraryBooksIcon style={{ fontSize: 40 }} />
         <h1>Модули и оценки</h1>
       </div>
+
+      <BackButton top={'16%'} />
 
       {/* <AddSubjectDialog
         open={dialogOpen}

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { Module } from '../components/modules/types';
 import { useParams } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import { selectModulesBySubjectId } from '../slices/modulesSlice';
 import { selectSubjectById } from '../slices/subjectsSlice';
 import {
@@ -52,6 +53,8 @@ const ModulesPage: React.FC = () => {
           <Typography variant="h6">Оценка</Typography>
         </div>
       </div>
+
+      <BackButton top={'18%'} />
       {Array.isArray(modules) &&
         modules.map((module: Module) => (
           <Accordion
