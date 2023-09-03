@@ -1,13 +1,39 @@
 .modules-page {
-  &__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+
+  &__title {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: center;
+    padding: 15px 0 15px 50px;
+    color: var(--primary-contrastText);
+    background-color: var(--primary-main);
+    width: 100%;
+
+    h1 {
+      margin: 0 0 0 15px;
+    }
   }
 
-  // &__card {
-  //   margin-bottom: 20px;
-  // }
+  &__table-header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--primary-dark);
+    color: var(--primary-contrastText);
+  }
+
+  &__table-title {
+    display: flex;
+    justify-content: space-between;
+    width: 49%;
+  }
+
+  &__accordion {
+    width: 50%;
+  }
 
   &__info {
     display: flex;

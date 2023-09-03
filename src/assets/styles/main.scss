@@ -11,3 +11,18 @@ body {
 .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
   border-color: var(--primary-main) !important;
 }
+
+.MuiTooltip-tooltip {
+  &.danger {
+    background-color: var(--error-main);
+  }
+  &.repeat {
+    background-color: var(--warning-main);
+  }
+  &.success {
+    background-color: var(--success-main);
+  }
+  &.comment {
+    background-color: var(--info-main);
+  }
+}

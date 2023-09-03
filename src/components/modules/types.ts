@@ -6,7 +6,7 @@ export interface Module {
   status: 'paid' | 'unpaid';
   startDate: string; // Дата начала в формате YYYY-MM-DD
   endDate: string; // Дата окончания в формате YYYY-MM-DD
-  grade: 'repeat' | 'danger' | 'success';
+  grade: 'repeat' | 'danger' | 'success' | 'not_set';
   comment: string;
   lessonDays: string[]; // Массив дней недели, например, ['Monday', 'Wednesday']
   startTime: string; // Время начала, например, "14:00"

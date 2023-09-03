@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Subject } from '../components/subjects/types';
+import { RootState } from '../redux/rootReducer';
 
 interface SubjectsState {
   subjects: Subject[];
@@ -26,6 +27,21 @@ const initialState: SubjectsState = {
           duration: '1h 30m',
           nextLessonDate: '13/09/2023',
         },
+        {
+          id: '1231242124',
+          name: 'Введение в HTML2',
+          totalLessonCount: 4,
+          completedLessonCount: 2,
+          status: 'unpaid',
+          startDate: '2023-09-01',
+          endDate: '2023-10-01',
+          grade: 'not_set',
+          comment: '',
+          lessonDays: ['Monday', 'Wednesday'],
+          startTime: '14:00',
+          duration: '1h 30m',
+          nextLessonDate: '13/10/2023',
+        },
       ],
     },
   ],
@@ -40,6 +56,10 @@ const subjectsSlice = createSlice({
     },
   },
 });
+
+export const selectSubjectById = (state: RootState, subjectId: string) => {
+  return state.subjects.subjects.find((subject) => subject.id === subjectId);
+};
 
 export const { addSubject } = subjectsSlice.actions;
 
