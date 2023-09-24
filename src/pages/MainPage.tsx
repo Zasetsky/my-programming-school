@@ -28,15 +28,19 @@ export const MainPage = () => {
       url: `/modules/${uniqueID}`,
       name: 'Модули и оценки',
     },
-    { icon: <Homework />, url: '/homework', name: 'Домашняя работа' },
+    {
+      icon: <Homework />,
+      url: `/homework/${uniqueID}`,
+      name: 'Домашняя работа',
+    },
     { icon: <PaymentIcon />, url: '/payment', name: 'Оплата' },
+    { icon: <SettingsIcon />, url: '/settings', name: 'Настройки' },
     { icon: <ExitToAppIcon />, url: '', name: 'Выход' },
     // {
     //   icon: <NoteAddIcon />,
     //   url: `/subjects/${uniqueID}`,
     //   name: 'Добавить предмет',
     // },
-    { icon: <SettingsIcon />, url: '/settings', name: 'Настройки' },
   ];
 
   return (

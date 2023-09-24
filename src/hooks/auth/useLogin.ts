@@ -58,7 +58,7 @@ export const useLogin = () => {
       const response = await auth(login, password, role);
 
       // Сохраняем isAuthenticated в localStorage
-      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('token', response.token);
 
       // Сбрасываем сообщения об ошибках и неверные поля, если они есть
       setErrorMessage(null);

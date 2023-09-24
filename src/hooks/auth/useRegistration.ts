@@ -66,7 +66,7 @@ export const useRegistration = () => {
       });
 
       // Сохраняем isAuthenticated в localStorage
-      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('token', response.token);
       // Сохраняем uniqueID в localStorage
       localStorage.setItem('uniqueID', response.uniqueID.toString());
 

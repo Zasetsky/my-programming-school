@@ -1,19 +1,25 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
-import { Card, CardContent } from '@mui/material';
+import { AppDispatch } from '../redux/store';
+import { Card, CardContent, CircularProgress, Typography } from '@mui/material';
 // import AddSubjectDialog from '../components/subjects/AddSubjectDialog';
 import SubjectCard from '../components/subjects/SubjectCard';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import BackButton from '../components/BackButton';
-// import { addSubject } from '../slices/subjectsSlice';
+import { fetchSubjectsAsync } from '../slices/subjectsSlice';
 
 import '../assets/styles/components/subject-page.scss';
 
 const SubjectsPage: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const subjects = useSelector((state: RootState) => state.subjects.subjects);
+  const status = useSelector((state: RootState) => state.subjects.status);
   // const [dialogOpen, setDialogOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchSubjectsAsync());
+  }, [dispatch]);
 
   // const handleAddSubject = (name: string) => {
   //   dispatch(addSubject(name));
@@ -36,16 +42,20 @@ const SubjectsPage: React.FC = () => {
       /> */}
 
       <div className="subject-page__cards">
-        {subjects.length > 0 ? (
+        {status === 'loading' ? (
+          <CircularProgress />
+        ) : subjects.length > 0 ? (
           subjects.map((subject, index) => (
             <SubjectCard key={index} subject={subject} />
           ))
         ) : (
-          <div className="subject-page__empty-message">
-            <Card>
-              <CardContent>У вас пока нет тем для обучения.</CardContent>
-            </Card>
-          </div>
+          <Card className="subject-page__empty-message">
+            <CardContent>
+              <Typography variant="body2">
+                У вас пока нет тем для обучения
+              </Typography>
+            </CardContent>
+          </Card>
         )}
       </div>
       {/* <Button

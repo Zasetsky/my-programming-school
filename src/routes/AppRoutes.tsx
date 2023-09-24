@@ -6,6 +6,7 @@ import { MainLoginPage } from '../pages/MainLoginPage';
 import { MainPage } from '../pages/MainPage';
 import SubjectsPage from '../pages/SubjectsPage';
 import ModulesPage from '../pages/ModulesPage';
+import HomeworkPage from '../pages/HomeworkPage';
 
 const AppRoutes = () => {
   // Извлекаем uniqueID из localStorage
@@ -34,11 +35,11 @@ const AppRoutes = () => {
         path="/:subjectId/:uniqueID"
         element={<ProtectedRoute element={<ModulesPage />} redirectTo="/" />}
       />
-      {/* <Route
-        path="/main/homework"
+      <Route
+        path="/homework/:uniqueID"
         element={<ProtectedRoute element={<HomeworkPage />} redirectTo="/" />}
       />
-      <Route
+      {/* <Route
         path="/main/payment"
         element={<ProtectedRoute element={<PaymentPage />} redirectTo="/" />}
       />

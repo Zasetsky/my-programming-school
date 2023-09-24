@@ -21,15 +21,17 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
   const lastModule =
     subject.modules.length > 0
       ? subject.modules[subject.modules.length - 1]
-      : null;
+      : undefined;
 
   const shouldShowNextLesson =
     lastModule && lastModule.status === 'paid' && lastModule.nextLessonDate; // Добавить логику для проверки, что дата не равна прошлому
 
   const handleDetailsClick = () => {
     const uniqueID = localStorage.getItem('uniqueID') || '';
-    navigate(`/${subject.id}/${uniqueID}`);
+    navigate(`/${subject.subjectCode}/${uniqueID}`);
   };
+
+  console.log(subject);
 
   return (
     <Card className="subject-card">
@@ -40,15 +42,12 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
           </Typography>
           {shouldShowNextLesson && (
             <Typography variant="body2" className="subject-card__next-lesson">
-              Следующий урок: {lastModule.nextLessonDate}
+              Следующий урок: {lastModule?.nextLessonDate}
             </Typography>
           )}
         </div>
-        {lastModule === null ? (
-          <Typography variant="body2" className="subject-card__no-modules">
-            У вас пока нет модулей
-          </Typography>
-        ) : (
+
+        {lastModule ? (
           <div className="subject-card__module">
             <Typography variant="inherit">{lastModule.name}</Typography>
             {lastModule.status === 'unpaid' && (
@@ -72,7 +71,12 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
               </>
             )}
           </div>
+        ) : (
+          <Typography variant="body2" className="subject-card__no-modules">
+            У вас пока нет модулей
+          </Typography>
         )}
+
         <Button
           variant="text"
           className="subject-card__button"

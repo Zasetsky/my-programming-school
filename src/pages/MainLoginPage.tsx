@@ -5,18 +5,11 @@ import LoginComponent from '../components/auth/LoginComponent';
 import RegistrationComponent from '../components/auth/RegistrationComponent';
 import Avatar from '../components/AvatarComponent';
 import { StudentIcon, TeacherIcon, GuestIcon } from '../assets/icons/index';
-import { useTheme as useAppTheme } from '../hooks/theme/useTheme';
 
 import '../assets/styles/components/auth/main-login-page.scss';
 
 export const MainLoginPage = () => {
   const loginHook = useLogin();
-  const { darkMode, setDarkMode } = useAppTheme();
-
-  const toggleTheme = () => {
-    // Функция для переключения темы
-    setDarkMode(!darkMode);
-  };
 
   return (
     <div className="main-login-page">
@@ -24,14 +17,6 @@ export const MainLoginPage = () => {
       <h1 className="main-login-page__title">
         Добро пожаловать в школу программирования
       </h1>
-      <button
-        className="main-login-page__role-selection__button"
-        onClick={toggleTheme}
-      >
-        {darkMode
-          ? 'Переключить на светлую тему'
-          : 'Переключить на темную тему'}
-      </button>
       {loginHook.role ? (
         loginHook.role === 'Гость' ? (
           <RegistrationComponent resetRole={loginHook.resetRole} />
