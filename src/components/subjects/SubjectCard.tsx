@@ -28,10 +28,8 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
 
   const handleDetailsClick = () => {
     const uniqueID = localStorage.getItem('uniqueID') || '';
-    navigate(`/${subject.subjectCode}/${uniqueID}`);
+    navigate(`/${subject.subject_code}/${uniqueID}`);
   };
-
-  console.log(subject);
 
   return (
     <Card className="subject-card">

@@ -4,8 +4,8 @@ import { RootState } from '../redux/rootReducer';
 import { Module } from '../components/subjects/types';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
-import { selectModulesBySubjectId } from '../slices/subjectsSlice';
-import { selectSubjectById } from '../slices/subjectsSlice';
+import { selectModulesBySubjectCode } from '../slices/subjectsSlice';
+import { selectSubjectBySubjectCode } from '../slices/subjectsSlice';
 import {
   Typography,
   Accordion,
@@ -26,16 +26,18 @@ import { CheckList } from '../assets/icons/index';
 import '../assets/styles/components/modules-page.scss';
 
 const ModulesPage: React.FC = () => {
-  const { subjectId } = useParams();
+  const { subject_code } = useParams();
+
+  console.log(subject_code);
 
   const [expandedModuleId, setExpandedModuleId] = useState<string | null>(null);
 
   const modules = useSelector((state: RootState) =>
-    selectModulesBySubjectId(state, subjectId || ''),
+    selectModulesBySubjectCode(state, subject_code || ''),
   );
 
   const subject = useSelector((state: RootState) =>
-    selectSubjectById(state, subjectId || ''),
+    selectSubjectBySubjectCode(state, subject_code || ''),
   );
 
   const handleExpandClick = (id: string, comment: string | null) => {
@@ -71,6 +73,17 @@ const ModulesPage: React.FC = () => {
                 <div className="modules-page__info">
                   <Typography variant="body1">
                     {module.name}
+                    {module.status === 'unpaid' && (
+                      <span
+                        style={{
+                          marginLeft: '8px',
+                          fontSize: '12px',
+                          color: 'var(--error-main)',
+                        }}
+                      >
+                        Не оплачено
+                      </span>
+                    )}
                     {module.comment && (
                       <Tooltip
                         title="Учитель оставил комментарий"

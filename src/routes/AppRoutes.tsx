@@ -32,7 +32,7 @@ const AppRoutes = () => {
         element={<ProtectedRoute element={<SubjectsPage />} redirectTo="/" />}
       />
       <Route
-        path="/:subjectId/:uniqueID"
+        path="/:subject_code/:uniqueID"
         element={<ProtectedRoute element={<ModulesPage />} redirectTo="/" />}
       />
       <Route

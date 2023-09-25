@@ -8,6 +8,7 @@ import {
   updateModuleInSubjectOnServer,
   updateSubjectOnServer,
 } from '../api/subjects';
+import { createSelector } from 'reselect';
 
 interface SubjectsState {
   subjects: Subject[];
@@ -127,16 +128,21 @@ const subjectsSlice = createSlice({
   },
 });
 
-export const selectSubjectById = (state: RootState, subjectId: string) => {
-  return state.subjects.subjects.find((subject) => subject.id === subjectId);
-};
+export const selectSubjectBySubjectCode = createSelector(
+  (state: RootState) => state.subjects.subjects,
+  (_state: RootState, subjectCode: string) => subjectCode,
+  (subjects, subjectCode) => {
+    return subjects.find((subject) => subject.subject_code === subjectCode);
+  },
+);
 
-export const selectModulesBySubjectId = (
-  state: RootState,
-  subjectId: string,
-) => {
-  const subject = state.subjects.subjects.find((s) => s.id === subjectId);
-  return subject ? subject.modules : [];
-};
+export const selectModulesBySubjectCode = createSelector(
+  (state: RootState) => state.subjects.subjects,
+  (_state: RootState, subjectCode: string) => subjectCode,
+  (subjects, subjectCode) => {
+    const subject = subjects.find((s) => s.subject_code === subjectCode);
+    return subject ? subject.modules : [];
+  },
+);
 
 export default subjectsSlice.reducer;

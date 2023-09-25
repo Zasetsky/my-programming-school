@@ -1,6 +1,6 @@
 export interface Subject {
   id: string;
-  subjectCode: string;
+  subject_code: string;
   userId: string;
   name: string;
   modules: Module[];
