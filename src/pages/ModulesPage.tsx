@@ -28,8 +28,6 @@ import '../assets/styles/components/modules-page.scss';
 const ModulesPage: React.FC = () => {
   const { subject_code } = useParams();
 
-  console.log(subject_code);
-
   const [expandedModuleId, setExpandedModuleId] = useState<string | null>(null);
 
   const modules = useSelector((state: RootState) =>

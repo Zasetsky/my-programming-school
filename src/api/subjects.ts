@@ -5,7 +5,6 @@ const baseUrl = process.env.REACT_APP_API_BASE_URL || '';
 
 export const fetchSubjectsFromServer = async () => {
   const response = await axios.get(`${baseUrl}/api/getSubjects`);
-  console.log(response.data.subjects);
 
   return response.data.subjects || [];
 };
