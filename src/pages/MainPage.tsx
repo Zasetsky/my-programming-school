@@ -31,7 +31,13 @@ export const MainPage = () => {
     {
       icon: <Homework />,
       url: `/homework/${uniqueID}`,
-      name: 'Домашняя работа',
+      name: (
+        <>
+          Домашняя работа/
+          <br />
+          Расписание
+        </>
+      ),
     },
     { icon: <PaymentIcon />, url: '/payment', name: 'Оплата' },
     { icon: <SettingsIcon />, url: '/settings', name: 'Настройки' },

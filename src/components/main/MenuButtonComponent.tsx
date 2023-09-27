@@ -6,7 +6,7 @@ import '../../assets/styles/components/menu-button.scss';
 interface Props {
   icon: React.ReactElement;
   url: string;
-  name: string;
+  name: React.ReactNode;
 }
 
 const MenuButtonComponent: React.FC<Props> = ({ icon, url, name }) => {

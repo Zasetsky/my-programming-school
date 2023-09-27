@@ -29,7 +29,7 @@ const SubjectsPage: React.FC = () => {
   return (
     <div className="subject-page">
       <div className="subject-page__title">
-        <LibraryBooksIcon style={{ fontSize: 40 }} />
+        <LibraryBooksIcon style={{ fontSize: 50 }} />
         <h1>Модули и оценки</h1>
       </div>
 

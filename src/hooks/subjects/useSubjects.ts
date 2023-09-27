@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Subject } from '../../components/subjects/types';
+// import { Subject } from '../../components/subjects/types';
 
 export const useSubjects = () => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+  // const [subjects, setSubjects] = useState<Subject[]>([]);
 
   // const addSubject = (name: string) => {
   //   setSubjects([...subjects, { name }]);
@@ -12,7 +12,7 @@ export const useSubjects = () => {
   return {
     dialogOpen,
     setDialogOpen,
-    subjects,
+    // subjects,
     // addSubject,
   };
 };

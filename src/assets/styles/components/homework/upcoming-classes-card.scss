@@ -1,0 +1,38 @@
+.upcoming-classes-card {
+  &__header {
+    // Стили для заголовка
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+  }
+
+  &__scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    width: calc(70px * 4 + 16px * 4);
+
+    // Скрытие полосы прокрутки
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+  }
+
+  &__card:first-child {
+    margin-left: 5px;
+  }
+
+  &__card:last-child {
+    margin-right: 5px;
+  }
+
+  &__card {
+    min-width: 64px;
+    height: 118px;
+  }
+}
