@@ -5,3 +5,10 @@ export interface Lesson {
   moduleName: string;
   lessonDate: string;
 }
+
+export interface Homework {
+  moduleName: string;
+  homeworkDate: string;
+  homeworkText: string;
+  startTime: string;
+}
