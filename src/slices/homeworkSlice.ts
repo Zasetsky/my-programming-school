@@ -59,4 +59,7 @@ export const selectLessons = (state: RootState) => state.lessons.lessons;
 
 export const selectHomeworks = (state: RootState) => state.lessons.homeworks;
 
+export const selectSelectedDate = (state: RootState) =>
+  state.lessons.selectedDate;
+
 export default homeworkSlice.reducer;

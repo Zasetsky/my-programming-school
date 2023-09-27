@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import { selectLessons, setSelectedDate } from '../../slices/homeworkSlice';
@@ -8,17 +8,25 @@ const UpcomingClassesCard: React.FC = () => {
   const dispatch = useDispatch();
   const lessons = useSelector(selectLessons);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeDate, setActiveDate] = useState<string | null>(null);
+
+  const parseDate = (dateString: string) => {
+    const [day, month, year] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  const findClosestLesson = () => {
+    const today = new Date();
+    return lessons.find((lesson) => parseDate(lesson.lessonDate) >= today);
+  };
 
   useEffect(() => {
-    const today = new Date();
-    const closestLesson = lessons.find((lesson) => {
-      const [day, month, year] = lesson.lessonDate.split('-').map(Number);
-      const lessonDate = new Date(year, month - 1, day);
-      return lessonDate >= today;
-    });
-
+    console.log('Lessons from Redux:', lessons);
+    const closestLesson = findClosestLesson();
     if (closestLesson) {
+      console.log('Setting active date to:', closestLesson.lessonDate);
       dispatch(setSelectedDate(closestLesson.lessonDate));
+      setActiveDate(closestLesson.lessonDate);
     }
   }, [dispatch, lessons]);
 
@@ -34,6 +42,7 @@ const UpcomingClassesCard: React.FC = () => {
 
   const handleClickCard = (lessonDate: string) => {
     dispatch(setSelectedDate(lessonDate));
+    setActiveDate(lessonDate);
   };
 
   return (
@@ -41,15 +50,17 @@ const UpcomingClassesCard: React.FC = () => {
       <Button onClick={() => handleScroll('left')}>Влево</Button>
       <div ref={scrollRef} className="upcoming-classes-card__scroll-container">
         {lessons.map((lesson, index) => {
-          const [day, month, year] = lesson.lessonDate.split('-').map(Number);
-          const date = new Date(year, month - 1, day);
+          const date = parseDate(lesson.lessonDate);
           const dayOfWeek = date.toLocaleString('ru', { weekday: 'short' });
           const dayOfMonth = date.getDate();
+          const isActive = lesson.lessonDate === activeDate;
 
           return (
             <Card
               key={index}
-              className="upcoming-classes-card__card"
+              className={`upcoming-classes-card__card ${
+                isActive ? 'active' : ''
+              }`}
               onClick={() => handleClickCard(lesson.lessonDate)}
             >
               <CardContent

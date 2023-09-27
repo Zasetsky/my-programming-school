@@ -32,7 +32,16 @@
   }
 
   &__card {
+    cursor: pointer;
     min-width: 64px;
     height: 118px;
+
+    &:hover {
+      background-color: var(--info-light)
+    }
+
+    &.active {
+      background-color: var(--info-light)
+    }
   }
 }
