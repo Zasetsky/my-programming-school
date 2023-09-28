@@ -1,0 +1,17 @@
+.homework-card {
+  margin-top: 30px;
+  width: 370px;
+  height: 370px;
+  overflow: auto;
+
+  &__content {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  &__lesson-block {
+    margin-top: 26px;
+    display: flex;
+    align-items: baseline;
+  }
+}

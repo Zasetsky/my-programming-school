@@ -9,7 +9,7 @@ import {
 import { Subject } from './types';
 import { useNavigate } from 'react-router-dom';
 
-import '../../assets/styles/components/subject-card.scss';
+import '../../assets/styles/components/subjects/subject-card.scss';
 
 interface SubjectCardProps {
   subject: Subject;

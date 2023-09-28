@@ -62,4 +62,18 @@ export const selectHomeworks = (state: RootState) => state.lessons.homeworks;
 export const selectSelectedDate = (state: RootState) =>
   state.lessons.selectedDate;
 
+export const selectDataForSelectedDate = (state: RootState) => {
+  const selectedDate = state.lessons.selectedDate;
+  if (!selectedDate) return { lessons: [], homeworks: [] };
+
+  const lessonsForDate = state.lessons.lessons.filter(
+    (lesson) => lesson.lessonDate === selectedDate,
+  );
+  const homeworksForDate = state.lessons.homeworks.filter(
+    (hw) => hw.homeworkDate === selectedDate,
+  );
+
+  return { lessons: lessonsForDate, homeworks: homeworksForDate };
+};
+
 export default homeworkSlice.reducer;

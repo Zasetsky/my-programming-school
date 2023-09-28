@@ -9,7 +9,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import BackButton from '../components/BackButton';
 import { fetchSubjectsAsync } from '../slices/subjectsSlice';
 
-import '../assets/styles/components/subject-page.scss';
+import '../assets/styles/components/subjects/subject-page.scss';
 
 const SubjectsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +43,7 @@ const SubjectsPage: React.FC = () => {
 
       <div className="subject-page__cards">
         {status === 'loading' ? (
-          <CircularProgress />
+          <CircularProgress sx={{ marginTop: '100px' }} />
         ) : subjects.length > 0 ? (
           subjects.map((subject, index) => (
             <SubjectCard key={index} subject={subject} />

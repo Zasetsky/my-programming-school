@@ -4,10 +4,11 @@ export interface Lesson {
   subjectName: string;
   moduleName: string;
   lessonDate: string;
+  startTime: string;
 }
 
 export interface Homework {
-  moduleName: string;
+  subjectName: string;
   homeworkDate: string;
   homeworkText: string;
   startTime: string;

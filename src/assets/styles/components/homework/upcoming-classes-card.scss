@@ -1,8 +1,4 @@
 .upcoming-classes-card {
-  &__header {
-    // Стили для заголовка
-  }
-
   &__controls {
     display: flex;
     align-items: center;
@@ -42,6 +38,18 @@
 
     &.active {
       background-color: var(--info-light)
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--action-disabled);
+    }
+
+    &:hover .upcoming-classes-card__card-content,
+    &.active .upcoming-classes-card__card-content {
+      color: var(--background-default);
     }
   }
 }

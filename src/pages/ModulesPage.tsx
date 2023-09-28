@@ -23,7 +23,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import { CheckList } from '../assets/icons/index';
 
-import '../assets/styles/components/modules-page.scss';
+import '../assets/styles/components/subjects/modules-page.scss';
 
 const ModulesPage: React.FC = () => {
   const { subject_code } = useParams();

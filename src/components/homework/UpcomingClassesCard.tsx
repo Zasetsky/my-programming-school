@@ -3,28 +3,41 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import { selectLessons, setSelectedDate } from '../../slices/homeworkSlice';
 import '../../assets/styles/components/homework/upcoming-classes-card.scss';
+import { Lesson } from './types';
 
 const UpcomingClassesCard: React.FC = () => {
   const dispatch = useDispatch();
   const lessons = useSelector(selectLessons);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeDate, setActiveDate] = useState<string | null>(null);
+  const [uniqueLessons, setUniqueLessons] = useState<Lesson[]>([]);
 
   const parseDate = (dateString: string) => {
     const [day, month, year] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
   };
 
-  const findClosestLesson = () => {
+  const findClosestLesson = (lessonsToSearch: Lesson[]) => {
     const today = new Date();
-    return lessons.find((lesson) => parseDate(lesson.lessonDate) >= today);
+    return lessonsToSearch.find(
+      (lesson) => parseDate(lesson.lessonDate) >= today,
+    );
   };
 
   useEffect(() => {
-    console.log('Lessons from Redux:', lessons);
-    const closestLesson = findClosestLesson();
+    const uniqueDates: string[] = [];
+    const filteredLessons = lessons.filter((lesson: Lesson) => {
+      if (!uniqueDates.includes(lesson.lessonDate)) {
+        uniqueDates.push(lesson.lessonDate);
+        return true;
+      }
+      return false;
+    });
+
+    setUniqueLessons(filteredLessons); // Обновляем локальный стейт
+
+    const closestLesson = findClosestLesson(filteredLessons);
     if (closestLesson) {
-      console.log('Setting active date to:', closestLesson.lessonDate);
       dispatch(setSelectedDate(closestLesson.lessonDate));
       setActiveDate(closestLesson.lessonDate);
     }
@@ -49,7 +62,7 @@ const UpcomingClassesCard: React.FC = () => {
     <div className="upcoming-classes-card__controls">
       <Button onClick={() => handleScroll('left')}>Влево</Button>
       <div ref={scrollRef} className="upcoming-classes-card__scroll-container">
-        {lessons.map((lesson, index) => {
+        {uniqueLessons.map((lesson, index) => {
           const date = parseDate(lesson.lessonDate);
           const dayOfWeek = date.toLocaleString('ru', { weekday: 'short' });
           const dayOfMonth = date.getDate();
@@ -63,13 +76,7 @@ const UpcomingClassesCard: React.FC = () => {
               }`}
               onClick={() => handleClickCard(lesson.lessonDate)}
             >
-              <CardContent
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
+              <CardContent className="upcoming-classes-card__card-content">
                 <Typography variant="h3">{dayOfMonth}</Typography>
                 <Typography variant="body1">{dayOfWeek}</Typography>
               </CardContent>
