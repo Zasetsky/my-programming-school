@@ -1,10 +1,17 @@
 .homework-page {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--primary-main);
+    color: var(--primary-contrastText);
+    padding: 20px 30px 30px 30px;
+    line-height: 0;
+  }
   &__title {
     display: flex;
     align-items: center;
-    background-color: var(--primary-main);
-    padding: 20px 0 30px 30px;
-    color: var(--primary-contrastText);
+
 
     svg {
       width: 50px;
@@ -28,7 +35,7 @@
       }
       p {
         font-size: 12px;
-        margin: 0 0 20px 0;
+        margin: 4px 0 20px 0;
         color: var(--action-disabled);
       }
     }

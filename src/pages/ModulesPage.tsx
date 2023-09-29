@@ -86,6 +86,7 @@ const ModulesPage: React.FC = () => {
                       <Tooltip
                         title="Учитель оставил комментарий"
                         classes={{ tooltip: 'comment' }}
+                        arrow
                       >
                         <FeedbackIcon
                           sx={{ color: 'var(--info-main)', marginLeft: 2 }}
@@ -104,6 +105,7 @@ const ModulesPage: React.FC = () => {
                         : 'Оценка ещё не поставлена'
                     }
                     classes={{ tooltip: module.grade }}
+                    arrow
                   >
                     <Box
                       sx={{

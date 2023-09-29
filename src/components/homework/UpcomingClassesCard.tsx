@@ -1,62 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Card, CardContent, Typography, Button } from '@mui/material';
-import { selectLessons, setSelectedDate } from '../../slices/homeworkSlice';
+import React from 'react';
+import useUpcomingClassesCard from '../../hooks/homework/useUpcomingClassesCard';
+
+import { Card, CardContent, Typography, Button, Tooltip } from '@mui/material';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+
 import '../../assets/styles/components/homework/upcoming-classes-card.scss';
-import { Lesson } from './types';
 
 const UpcomingClassesCard: React.FC = () => {
-  const dispatch = useDispatch();
-  const lessons = useSelector(selectLessons);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeDate, setActiveDate] = useState<string | null>(null);
-  const [uniqueLessons, setUniqueLessons] = useState<Lesson[]>([]);
-
-  const parseDate = (dateString: string) => {
-    const [day, month, year] = dateString.split('-').map(Number);
-    return new Date(year, month - 1, day);
-  };
-
-  const findClosestLesson = (lessonsToSearch: Lesson[]) => {
-    const today = new Date();
-    return lessonsToSearch.find(
-      (lesson) => parseDate(lesson.lessonDate) >= today,
-    );
-  };
-
-  useEffect(() => {
-    const uniqueDates: string[] = [];
-    const filteredLessons = lessons.filter((lesson: Lesson) => {
-      if (!uniqueDates.includes(lesson.lessonDate)) {
-        uniqueDates.push(lesson.lessonDate);
-        return true;
-      }
-      return false;
-    });
-
-    setUniqueLessons(filteredLessons); // Обновляем локальный стейт
-
-    const closestLesson = findClosestLesson(filteredLessons);
-    if (closestLesson) {
-      dispatch(setSelectedDate(closestLesson.lessonDate));
-      setActiveDate(closestLesson.lessonDate);
-    }
-  }, [dispatch, lessons]);
-
-  const handleScroll = (direction: 'left' | 'right') => {
-    const container = scrollRef.current;
-    if (container) {
-      container.scrollBy({
-        left: direction === 'right' ? 80 : -80,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const handleClickCard = (lessonDate: string) => {
-    dispatch(setSelectedDate(lessonDate));
-    setActiveDate(lessonDate);
-  };
+  const {
+    activeDate,
+    uniqueLessons,
+    scrollRef,
+    parseDate,
+    handleScroll,
+    handleClickCard,
+    hasHomework,
+  } = useUpcomingClassesCard();
 
   return (
     <div className="upcoming-classes-card__controls">
@@ -79,6 +38,23 @@ const UpcomingClassesCard: React.FC = () => {
               <CardContent className="upcoming-classes-card__card-content">
                 <Typography variant="h3">{dayOfMonth}</Typography>
                 <Typography variant="body1">{dayOfWeek}</Typography>
+                {hasHomework(lesson.lessonDate) && (
+                  <Tooltip
+                    title="В этот день есть домашнее задание"
+                    followCursor
+                  >
+                    <BookmarkIcon
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        color: 'var(--error-main)',
+                        top: '-5px',
+                        width: '30px',
+                        height: '30px',
+                      }}
+                    />
+                  </Tooltip>
+                )}
               </CardContent>
             </Card>
           );
