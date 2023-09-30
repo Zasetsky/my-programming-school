@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { AppDispatch } from '../redux/store';
@@ -14,11 +14,14 @@ import '../assets/styles/components/subjects/subject-page.scss';
 const SubjectsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const subjects = useSelector((state: RootState) => state.subjects.subjects);
-  const status = useSelector((state: RootState) => state.subjects.status);
+  const [isLoading, setIsLoading] = useState(true);
   // const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchSubjectsAsync());
+    // Предположим, fetchLessons и fetchHomeworks возвращают промисы
+    Promise.all([dispatch(fetchSubjectsAsync())]).then(() => {
+      setIsLoading(false);
+    });
   }, [dispatch]);
 
   // const handleAddSubject = (name: string) => {
@@ -42,7 +45,7 @@ const SubjectsPage: React.FC = () => {
       /> */}
 
       <div className="subject-page__cards">
-        {status === 'loading' ? (
+        {isLoading ? (
           <CircularProgress sx={{ marginTop: '100px' }} />
         ) : subjects.length > 0 ? (
           subjects.map((subject, index) => (
