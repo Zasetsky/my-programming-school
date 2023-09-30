@@ -4,6 +4,7 @@ import {
   selectLessons,
   selectHomeworks,
   setSelectedDate,
+  selectSelectedDate,
 } from '../../slices/homeworkSlice';
 import { Lesson } from '../../components/homework/types';
 
@@ -11,7 +12,7 @@ const useUpcomingClassesCard = () => {
   const dispatch = useDispatch();
   const lessons = useSelector(selectLessons);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeDate, setActiveDate] = useState<string | null>(null);
+  const selectedDate = useSelector(selectSelectedDate);
   const [uniqueLessons, setUniqueLessons] = useState<Lesson[]>([]);
   const homeworks = useSelector(selectHomeworks);
 
@@ -46,7 +47,6 @@ const useUpcomingClassesCard = () => {
     const closestLesson = findClosestLesson(filteredLessons);
     if (closestLesson) {
       dispatch(setSelectedDate(closestLesson.lessonDate));
-      setActiveDate(closestLesson.lessonDate);
     }
   }, [dispatch, lessons]);
 
@@ -62,11 +62,10 @@ const useUpcomingClassesCard = () => {
 
   const handleClickCard = (lessonDate: string) => {
     dispatch(setSelectedDate(lessonDate));
-    setActiveDate(lessonDate);
   };
 
   return {
-    activeDate,
+    selectedDate,
     uniqueLessons,
     scrollRef,
     parseDate,

@@ -4,6 +4,10 @@
   height: 370px;
   overflow: auto;
 
+  .Mui-selected {
+    background-color: var(--info-light) !important;
+  }
+
   &__content {
     max-height: 100%;
     overflow-y: auto;

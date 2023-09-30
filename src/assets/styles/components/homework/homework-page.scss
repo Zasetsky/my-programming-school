@@ -5,13 +5,11 @@
     justify-content: space-between;
     background-color: var(--primary-main);
     color: var(--primary-contrastText);
-    padding: 20px 30px 30px 30px;
-    line-height: 0;
+    padding: 15px 30px 25px 30px;
   }
   &__title {
     display: flex;
     align-items: center;
-
 
     svg {
       width: 50px;
@@ -49,9 +47,17 @@
       width: 42px;
       height: 42px;
       background-color: var(--info-light);
+      transition: background-color 0.2s ease-in-out;
 
-      &:hover {
-        background-color: var(--info-dark);
+      &:hover,
+      &.active {
+        background-color: var(--info-main);
+      }
+
+      &.active {
+        &:hover {
+          background-color: var(--info-dark);
+        }
       }
     }
   }

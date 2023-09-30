@@ -1,4 +1,9 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { RootState } from '../redux/rootReducer';
 import { fetchAllUserLessons } from '../api/lessons';
 import { fetchAllHomeworks } from '../api/homework';
@@ -62,18 +67,20 @@ export const selectHomeworks = (state: RootState) => state.lessons.homeworks;
 export const selectSelectedDate = (state: RootState) =>
   state.lessons.selectedDate;
 
-export const selectDataForSelectedDate = (state: RootState) => {
-  const selectedDate = state.lessons.selectedDate;
-  if (!selectedDate) return { lessons: [], homeworks: [] };
+export const selectDataForSelectedDate = createSelector(
+  [selectLessons, selectHomeworks, selectSelectedDate],
+  (lessons, homeworks, selectedDate) => {
+    if (!selectedDate) return { lessons: [], homeworks: [] };
 
-  const lessonsForDate = state.lessons.lessons.filter(
-    (lesson) => lesson.lessonDate === selectedDate,
-  );
-  const homeworksForDate = state.lessons.homeworks.filter(
-    (hw) => hw.homeworkDate === selectedDate,
-  );
+    const lessonsForDate = lessons.filter(
+      (lesson) => lesson.lessonDate === selectedDate,
+    );
+    const homeworksForDate = homeworks.filter(
+      (hw) => hw.homeworkDate === selectedDate,
+    );
 
-  return { lessons: lessonsForDate, homeworks: homeworksForDate };
-};
+    return { lessons: lessonsForDate, homeworks: homeworksForDate };
+  },
+);
 
 export default homeworkSlice.reducer;

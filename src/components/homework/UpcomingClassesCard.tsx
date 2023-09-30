@@ -8,7 +8,7 @@ import '../../assets/styles/components/homework/upcoming-classes-card.scss';
 
 const UpcomingClassesCard: React.FC = () => {
   const {
-    activeDate,
+    selectedDate,
     uniqueLessons,
     scrollRef,
     parseDate,
@@ -25,7 +25,7 @@ const UpcomingClassesCard: React.FC = () => {
           const date = parseDate(lesson.lessonDate);
           const dayOfWeek = date.toLocaleString('ru', { weekday: 'short' });
           const dayOfMonth = date.getDate();
-          const isActive = lesson.lessonDate === activeDate;
+          const isActive = lesson.lessonDate === selectedDate;
 
           return (
             <Card

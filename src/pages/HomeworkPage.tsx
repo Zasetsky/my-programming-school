@@ -1,5 +1,6 @@
 import React from 'react';
 import useHomeworkPage from '../hooks/homework/useHomeworkPage';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import UpcomingClassesCard from '../components/homework/UpcomingClassesCard';
 import HomeworkCard from '../components/homework//HomeworkCard';
@@ -21,6 +22,11 @@ const HomeworkPage: React.FC = () => {
     toggleCalendar,
   } = useHomeworkPage();
 
+  // Хук для определения ширины экрана
+  const matches = useMediaQuery('(max-width:768px)');
+  // Выбор значения 'top' в зависимости от ширины экрана
+  const backButtonTop = matches ? '130px' : '110px';
+
   return (
     <div className="homework-page">
       <div className="homework-page__header">
@@ -33,7 +39,7 @@ const HomeworkPage: React.FC = () => {
         </h3>
       </div>
 
-      <BackButton top={'110px'} />
+      <BackButton top={backButtonTop} />
 
       <div className="homework-page__content">
         <div className="homework-page__calendar">
@@ -45,7 +51,9 @@ const HomeworkPage: React.FC = () => {
           </div>
 
           <div
-            className="homework-page__calendar-icon"
+            className={`homework-page__calendar-icon ${
+              showCalendar ? 'active' : ''
+            }`}
             onClick={toggleCalendar}
           >
             <CalendarMonthIcon sx={{ color: 'var(--background-default)' }} />
