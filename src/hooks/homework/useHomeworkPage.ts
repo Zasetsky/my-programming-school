@@ -18,6 +18,7 @@ const useHomeworkPage = () => {
   const selectedDate = useSelector(selectSelectedDate);
   const { homeworks } = useSelector(selectDataForSelectedDate);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const homeworksCountForSelectedDate = homeworks.length;
 
@@ -54,8 +55,12 @@ const useHomeworkPage = () => {
   const word = pluralizeRussian(lessonsCount, ['урок', 'урока', 'уроков']);
 
   useEffect(() => {
-    dispatch(fetchLessons());
-    dispatch(fetchHomeworks());
+    // Предположим, fetchLessons и fetchHomeworks возвращают промисы
+    Promise.all([dispatch(fetchLessons()), dispatch(fetchHomeworks())]).then(
+      () => {
+        setIsLoading(false);
+      },
+    );
   }, [dispatch]);
 
   const toggleCalendar = () => {
@@ -69,6 +74,7 @@ const useHomeworkPage = () => {
     word,
     homeworksCountForSelectedDate,
     showCalendar,
+    isLoading,
     toggleCalendar,
   };
 };

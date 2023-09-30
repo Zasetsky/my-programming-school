@@ -14,7 +14,10 @@ const CustomDay: React.FC<CustomDayProps> = ({ isLessonDay, ...props }) => {
       overlap="circular"
       badgeContent={
         isLessonDay ? (
-          <SchoolIcon fontSize="small" style={{ color: 'var(--error-main)' }} />
+          <SchoolIcon
+            fontSize="small"
+            style={{ color: 'var(--primary-main)' }}
+          />
         ) : undefined
       }
     >

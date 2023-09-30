@@ -15,6 +15,11 @@ const useUpcomingClassesCard = () => {
   const selectedDate = useSelector(selectSelectedDate);
   const [uniqueLessons, setUniqueLessons] = useState<Lesson[]>([]);
   const homeworks = useSelector(selectHomeworks);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [selectedLessonDate, setSelectedLessonDate] = useState<string | null>(
+    null,
+  );
+  const [currentDate, setCurrentDate] = useState<string>('');
 
   const hasHomework = (date: string) => {
     return homeworks.some((hw) => hw.homeworkDate === date);
@@ -64,14 +69,37 @@ const useUpcomingClassesCard = () => {
     dispatch(setSelectedDate(lessonDate));
   };
 
+  const handleOpenDialog = (lessonDate: string) => {
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}-${String(
+      today.getMonth() + 1,
+    ).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    setCurrentDate(formattedDate); // Инициализация текущей даты
+
+    setDialogOpen(true);
+    setSelectedLessonDate(lessonDate);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setSelectedLessonDate(null);
+  };
+
   return {
+    dialogOpen,
     selectedDate,
     uniqueLessons,
     scrollRef,
+    selectedLessonDate,
+    currentDate,
+    setDialogOpen,
+    setSelectedLessonDate,
     parseDate,
     handleScroll,
     handleClickCard,
     hasHomework,
+    handleOpenDialog,
+    handleCloseDialog,
   };
 };
 

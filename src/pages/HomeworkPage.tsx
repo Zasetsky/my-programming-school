@@ -1,6 +1,6 @@
 import React from 'react';
 import useHomeworkPage from '../hooks/homework/useHomeworkPage';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { Skeleton, useMediaQuery } from '@mui/material';
 
 import UpcomingClassesCard from '../components/homework/UpcomingClassesCard';
 import HomeworkCard from '../components/homework//HomeworkCard';
@@ -19,6 +19,7 @@ const HomeworkPage: React.FC = () => {
     word,
     homeworksCountForSelectedDate,
     showCalendar,
+    isLoading,
     toggleCalendar,
   } = useHomeworkPage();
 
@@ -44,23 +45,44 @@ const HomeworkPage: React.FC = () => {
       <div className="homework-page__content">
         <div className="homework-page__calendar">
           <div className="homework-page__calendar-month">
-            <h2>
-              {currentMonth}, {selectedDay}
-            </h2>
-            <p>В выбранную дату {homeworksCountForSelectedDate} ДЗ</p>
+            {isLoading ? (
+              <>
+                <Skeleton
+                  variant="text"
+                  width={100}
+                  style={{ marginTop: '20px' }}
+                />
+                <Skeleton
+                  variant="text"
+                  width={60}
+                  style={{ marginBottom: '20px' }}
+                />
+              </>
+            ) : (
+              <>
+                <h2>
+                  {currentMonth}, {selectedDay}
+                </h2>
+                <p>В выбранную дату {homeworksCountForSelectedDate} ДЗ</p>
+              </>
+            )}
           </div>
 
-          <div
-            className={`homework-page__calendar-icon ${
-              showCalendar ? 'active' : ''
-            }`}
-            onClick={toggleCalendar}
-          >
-            <CalendarMonthIcon sx={{ color: 'var(--background-default)' }} />
-          </div>
+          {isLoading ? (
+            <Skeleton variant="circular" width={40} height={40} />
+          ) : (
+            <div
+              className={`homework-page__calendar-icon ${
+                showCalendar ? 'active' : ''
+              }`}
+              onClick={toggleCalendar}
+            >
+              <CalendarMonthIcon sx={{ color: 'var(--background-default)' }} />
+            </div>
+          )}
         </div>
-        <UpcomingClassesCard />
-        <HomeworkCard showCalendar={showCalendar} />
+        <UpcomingClassesCard isLoading={isLoading} />
+        <HomeworkCard showCalendar={showCalendar} isLoading={isLoading} />
       </div>
     </div>
   );

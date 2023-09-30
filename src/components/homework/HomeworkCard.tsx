@@ -4,7 +4,7 @@ import CustomDay from './CustomDay';
 import { AppDispatch } from '../../redux/store';
 import { RootState } from '../../redux/rootReducer';
 import { setSelectedDate } from '../../slices/homeworkSlice';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Skeleton } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,8 +12,9 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ru';
 import '../../assets/styles/components/homework/homework-card.scss';
 
-const HomeworkCard: React.FC<{ showCalendar: boolean }> = ({
+const HomeworkCard: React.FC<{ showCalendar: boolean; isLoading: boolean }> = ({
   showCalendar,
+  isLoading,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const selectedDate = useSelector(
@@ -39,7 +40,29 @@ const HomeworkCard: React.FC<{ showCalendar: boolean }> = ({
   return (
     <Card className="homework-card">
       <CardContent className="homework-card__content">
-        {showCalendar ? (
+        {isLoading ? (
+          [1, 2, 3].map((_, index) => (
+            <div key={index} className="homework-card__lesson-item">
+              <div className="homework-card__lesson-block">
+                <Skeleton variant="text" width={60} height={30} />
+                <Skeleton
+                  variant="text"
+                  width={150}
+                  height={30}
+                  style={{ marginLeft: '10px' }}
+                />
+              </div>
+              <div className="homework-card__homework-block">
+                <Skeleton
+                  variant="text"
+                  width={300}
+                  height={20}
+                  style={{ marginLeft: '20px' }}
+                />
+              </div>
+            </div>
+          ))
+        ) : showCalendar ? (
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
             <DateCalendar
               value={date}
