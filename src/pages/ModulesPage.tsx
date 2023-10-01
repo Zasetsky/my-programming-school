@@ -67,7 +67,9 @@ const ModulesPage: React.FC = () => {
               expanded={expandedModuleId === module.id}
               onChange={() => handleExpandClick(module.id, module.comment)}
             >
-              <AccordionSummary>
+              <AccordionSummary
+                style={{ cursor: module.comment ? 'pointer' : 'default' }}
+              >
                 <div className="modules-page__info">
                   <Typography variant="body1">
                     {module.name}
@@ -85,7 +87,7 @@ const ModulesPage: React.FC = () => {
                     {module.comment && (
                       <Tooltip
                         title="Учитель оставил комментарий"
-                        classes={{ tooltip: 'comment' }}
+                        classes={{ tooltip: 'comment', arrow: 'comment-arrow' }}
                         arrow
                       >
                         <FeedbackIcon
@@ -104,7 +106,10 @@ const ModulesPage: React.FC = () => {
                         ? 'Материал усвоен'
                         : 'Оценка ещё не поставлена'
                     }
-                    classes={{ tooltip: module.grade }}
+                    classes={{
+                      tooltip: module.grade,
+                      arrow: module.grade + '-arrow',
+                    }}
                     arrow
                   >
                     <Box

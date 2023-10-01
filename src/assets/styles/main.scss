@@ -12,17 +12,35 @@ body {
   border-color: var(--primary-main) !important;
 }
 
-.MuiTooltip-tooltip {
-  &.danger {
-    background-color: var(--error-main);
-  }
-  &.repeat {
-    background-color: var(--warning-main);
-  }
-  &.success {
-    background-color: var(--success-main);
-  }
-  &.comment {
-    background-color: var(--info-main);
-  }
+.danger {
+  background-color: var(--error-main) !important;
+}
+.danger-arrow {
+  color: var(--error-main) !important;
+}
+.repeat {
+  background-color: var(--warning-main) !important;
+}
+.repeat-arrow {
+  color: var(--warning-main) !important;
+}
+.success {
+  background-color: var(--success-main) !important;
+}
+.success-arrow {
+  color: var(--success-main) !important;
+}
+.comment {
+  background-color: var(--info-main) !important;
+}
+.comment-arrow {
+  color: var(--info-main) !important;
+}
+
+.reschedule {
+  background-color: var(--primary-dark) !important;
+}
+
+.reschedule-arrow {
+  color: var(--primary-dark) !important;
 }

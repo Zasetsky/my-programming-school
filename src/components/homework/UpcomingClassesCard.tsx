@@ -86,6 +86,7 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
                     {hasHomework(lesson.lessonDate) && (
                       <Tooltip
                         title="В этот день есть домашнее задание"
+                        classes={{ tooltip: 'danger' }}
                         followCursor
                       >
                         <BookmarkIcon
@@ -100,14 +101,21 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
                         />
                       </Tooltip>
                     )}
-                    <Tooltip title="Перенести занятие" arrow>
+                    <Tooltip
+                      title="Перенести занятие"
+                      classes={{
+                        tooltip: 'reschedule',
+                        arrow: 'reschedule-arrow ',
+                      }}
+                      arrow
+                    >
                       <EditCalendarIcon
                         style={{
                           width: '20px',
                           height: '20px',
                         }}
                         onMouseOver={(e) => {
-                          e.currentTarget.style.color = 'var(--primary-main)'; // Цвет при наведении
+                          e.currentTarget.style.color = 'var(--primary-dark)'; // Цвет при наведении
                         }}
                         onMouseOut={(e) => {
                           e.currentTarget.style.color = 'inherit'; // Цвет при отведении курсора
