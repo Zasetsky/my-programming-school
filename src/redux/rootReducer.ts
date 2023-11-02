@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import subjectsReducer from '../slices/subjectsSlice';
-import homeworkReducer from '../slices/homeworkSlice';
+import lessonReducer from '../slices/lessonsSlice';
 
 const rootReducer = combineReducers({
   subjects: subjectsReducer,
-  lessons: homeworkReducer,
+  lessons: lessonReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

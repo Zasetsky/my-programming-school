@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomDay from './CustomDay';
 import { AppDispatch } from '../../redux/store';
-import { RootState } from '../../redux/rootReducer';
-import { setSelectedDate } from '../../slices/homeworkSlice';
+import {
+  selectAllLessons,
+  selectSelectedDate,
+  setSelectedDate,
+  selectLessonsStatus,
+} from '../../slices/lessonsSlice';
 import { Card, CardContent, Typography, Skeleton } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -12,35 +16,39 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ru';
 import '../../assets/styles/components/homework/homework-card.scss';
 
-const HomeworkCard: React.FC<{ showCalendar: boolean; isLoading: boolean }> = ({
+const HomeworkCard: React.FC<{ showCalendar: boolean }> = ({
   showCalendar,
-  isLoading,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const selectedDate = useSelector(
-    (state: RootState) => state.lessons.selectedDate,
+  const selectedDate = useSelector(selectSelectedDate);
+  const lessons = useSelector(selectAllLessons);
+  const status = useSelector(selectLessonsStatus);
+  const [date, setDate] = useState(
+    selectedDate ? dayjs(selectedDate) : dayjs(),
   );
-  const lessons = useSelector((state: RootState) => state.lessons.lessons);
-  const homeworks = useSelector((state: RootState) => state.lessons.homeworks);
-  const [date, setDate] = useState(dayjs());
 
   const lessonsForDate = lessons.filter(
-    (lesson) => lesson.lessonDate === selectedDate,
+    (lesson) => lesson.lesson_date === selectedDate,
   );
 
-  const lessonDays = lessons.map((lesson) =>
-    dayjs(lesson.lessonDate, 'DD-MM-YYYY').format('YYYY-MM-DD'),
-  );
+  const lessonDays = lessons.map((lesson) => lesson.lesson_date);
+
+  const lessonsForDateSorted = lessonsForDate.sort((a, b) => {
+    const timeA = dayjs(a.start_time, 'HH:mm:ss');
+    const timeB = dayjs(b.start_time, 'HH:mm:ss');
+    return timeA.isBefore(timeB) ? -1 : 1;
+  });
+
   useEffect(() => {
     if (selectedDate) {
-      setDate(dayjs(selectedDate, 'DD-MM-YYYY'));
+      setDate(dayjs(selectedDate));
     }
   }, [selectedDate]);
 
   return (
     <Card className="homework-card">
       <CardContent className="homework-card__content">
-        {isLoading ? (
+        {status === 'loading' ? (
           [1, 2, 3].map((_, index) => (
             <div key={index} className="homework-card__lesson-item">
               <div className="homework-card__lesson-block">
@@ -68,8 +76,8 @@ const HomeworkCard: React.FC<{ showCalendar: boolean; isLoading: boolean }> = ({
               value={date}
               onChange={(newDate) => {
                 if (newDate) {
-                  const formattedDate = dayjs(newDate).format('DD-MM-YYYY');
-                  setDate(dayjs(formattedDate, 'DD-MM-YYYY'));
+                  const formattedDate = newDate.format('YYYY-MM-DD');
+                  setDate(newDate);
                   dispatch(setSelectedDate(formattedDate));
                 }
               }}
@@ -91,35 +99,29 @@ const HomeworkCard: React.FC<{ showCalendar: boolean; isLoading: boolean }> = ({
             />
           </LocalizationProvider>
         ) : (
-          lessonsForDate.map((lesson, index) => {
-            const homework = homeworks.find(
-              (hw) =>
-                hw.homeworkDate === selectedDate &&
-                hw.subjectName === lesson.subjectName,
-            );
-
-            return (
-              <div key={index} className="homework-card__lesson-item">
-                <div className="homework-card__lesson-block">
-                  <Typography variant="h6">{lesson.startTime}</Typography>
-                  <Typography sx={{ margin: '0 10px' }} variant="h6">
-                    {lesson.subjectName}
-                  </Typography>
-                </div>
-                <div className="homework-card__homework-block">
-                  {homework ? (
-                    <Typography sx={{ marginLeft: '20px' }} variant="body2">
-                      {homework.homeworkText}
-                    </Typography>
-                  ) : (
-                    <Typography sx={{ marginLeft: '20px' }} variant="body2">
-                      Нет домашней работы на выбранную дату
-                    </Typography>
-                  )}
-                </div>
+          lessonsForDateSorted.map((lesson, index) => (
+            <div key={index} className="homework-card__lesson-item">
+              <div className="homework-card__lesson-block">
+                <Typography variant="h6">
+                  {dayjs(lesson.start_time, 'HH:mm:ss').format('HH:mm')}
+                </Typography>
+                <Typography sx={{ margin: '0 10px' }} variant="h6">
+                  {lesson.subject_name}
+                </Typography>
               </div>
-            );
-          })
+              <div className="homework-card__homework-block">
+                {lesson.homework ? (
+                  <Typography sx={{ marginLeft: '20px' }} variant="body2">
+                    {lesson.homework}
+                  </Typography>
+                ) : (
+                  <Typography sx={{ marginLeft: '20px' }} variant="body2">
+                    Нет домашней работы на выбранную дату
+                  </Typography>
+                )}
+              </div>
+            </div>
+          ))
         )}
       </CardContent>
     </Card>

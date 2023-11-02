@@ -6,6 +6,7 @@
 
   &__scroll-container {
     display: flex;
+    padding: 20px 0;
     overflow-x: auto;
     gap: 16px;
     width: calc(70px * 4 + 16px * 4);

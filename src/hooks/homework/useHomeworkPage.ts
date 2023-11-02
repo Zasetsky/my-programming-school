@@ -3,30 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import {
   fetchLessons,
-  fetchHomeworks,
-  selectLessons,
-} from '../../slices/homeworkSlice';
-import {
+  selectAllLessons,
   selectSelectedDate,
-  selectDataForSelectedDate,
-} from '../../slices/homeworkSlice';
+  selectLessonsStatus,
+} from '../../slices/lessonsSlice';
 
 const useHomeworkPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const lessons = useSelector(selectLessons);
-
+  const lessons = useSelector(selectAllLessons);
   const selectedDate = useSelector(selectSelectedDate);
-  const { homeworks } = useSelector(selectDataForSelectedDate);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const status = useSelector(selectLessonsStatus);
 
-  const homeworksCountForSelectedDate = homeworks.length;
+  // Для подсчета домашних заданий используем количество уроков с домашним заданием
+  const homeworksCountForSelectedDate = lessons.filter(
+    (lesson) => lesson.homework && lesson.lesson_date === selectedDate,
+  ).length;
 
   let currentMonth: string;
   let selectedDay: string;
 
   if (selectedDate) {
-    const [day, month, year] = selectedDate.split('-').map(Number);
+    const [year, month, day] = selectedDate.split('-').map(Number);
     const selectedDateObject = new Date(year, month - 1, day);
     currentMonth = selectedDateObject.toLocaleString('ru', { month: 'long' });
     selectedDay = String(day);
@@ -41,7 +39,7 @@ const useHomeworkPage = () => {
   ).padStart(2, '0')}-${today.getFullYear()}`;
 
   const lessonsForToday = lessons.filter(
-    (lesson) => lesson.lessonDate === formattedToday,
+    (lesson) => lesson.lesson_date === formattedToday,
   );
 
   function pluralizeRussian(count: number, words: [string, string, string]) {
@@ -55,12 +53,7 @@ const useHomeworkPage = () => {
   const word = pluralizeRussian(lessonsCount, ['урок', 'урока', 'уроков']);
 
   useEffect(() => {
-    // Предположим, fetchLessons и fetchHomeworks возвращают промисы
-    Promise.all([dispatch(fetchLessons()), dispatch(fetchHomeworks())]).then(
-      () => {
-        setIsLoading(false);
-      },
-    );
+    dispatch(fetchLessons());
   }, [dispatch]);
 
   const toggleCalendar = () => {
@@ -74,7 +67,7 @@ const useHomeworkPage = () => {
     word,
     homeworksCountForSelectedDate,
     showCalendar,
-    isLoading,
+    status,
     toggleCalendar,
   };
 };

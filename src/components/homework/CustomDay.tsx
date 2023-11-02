@@ -16,7 +16,7 @@ const CustomDay: React.FC<CustomDayProps> = ({ isLessonDay, ...props }) => {
         isLessonDay ? (
           <SchoolIcon
             fontSize="small"
-            style={{ color: 'var(--primary-main)' }}
+            style={{ color: 'var(--primary-dark)' }}
           />
         ) : undefined
       }

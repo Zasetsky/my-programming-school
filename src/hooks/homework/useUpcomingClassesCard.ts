@@ -1,57 +1,69 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  selectLessons,
-  selectHomeworks,
-  setSelectedDate,
+  selectAllLessons,
   selectSelectedDate,
-} from '../../slices/homeworkSlice';
+  setSelectedDate,
+  // rescheduleLesson,
+  selectLessonsStatus,
+} from '../../slices/lessonsSlice';
 import { Lesson } from '../../components/homework/types';
 
 const useUpcomingClassesCard = () => {
   const dispatch = useDispatch();
-  const lessons = useSelector(selectLessons);
+  const lessons = useSelector(selectAllLessons);
   const scrollRef = useRef<HTMLDivElement>(null);
   const selectedDate = useSelector(selectSelectedDate);
   const [uniqueLessons, setUniqueLessons] = useState<Lesson[]>([]);
-  const homeworks = useSelector(selectHomeworks);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [selectedLessonDate, setSelectedLessonDate] = useState<string | null>(
     null,
   );
   const [currentDate, setCurrentDate] = useState<string>('');
+  // const selectedLesson = lessons.find(
+  //   (lesson) => lesson.lesson_date === selectedLessonDate,
+  // );
+  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<string>('');
+  const [snackbarType, setSnackbarType] = useState<'success' | 'error'>(
+    'success',
+  );
+  const status = useSelector(selectLessonsStatus);
 
-  const hasHomework = (date: string) => {
-    return homeworks.some((hw) => hw.homeworkDate === date);
-  };
+  function hasHomeworkOnDate(date: string) {
+    return lessons.some(
+      (lesson) => lesson.lesson_date === date && lesson.homework,
+    );
+  }
 
   const parseDate = (dateString: string) => {
-    const [day, month, year] = dateString.split('-').map(Number);
+    const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
   };
 
   const findClosestLesson = (lessonsToSearch: Lesson[]) => {
-    const today = new Date();
-    return lessonsToSearch.find(
-      (lesson) => parseDate(lesson.lessonDate) >= today,
-    );
+    return lessonsToSearch.find((lesson) => parseDate(lesson.lesson_date));
   };
 
   useEffect(() => {
     const uniqueDates: string[] = [];
     const filteredLessons = lessons.filter((lesson: Lesson) => {
-      if (!uniqueDates.includes(lesson.lessonDate)) {
-        uniqueDates.push(lesson.lessonDate);
+      if (!uniqueDates.includes(lesson.lesson_date)) {
+        uniqueDates.push(lesson.lesson_date);
         return true;
       }
       return false;
     });
 
-    setUniqueLessons(filteredLessons);
+    setUniqueLessons(
+      filteredLessons.map((lesson) => ({
+        ...lesson,
+      })),
+    );
 
     const closestLesson = findClosestLesson(filteredLessons);
     if (closestLesson) {
-      dispatch(setSelectedDate(closestLesson.lessonDate));
+      dispatch(setSelectedDate(closestLesson.lesson_date));
     }
   }, [dispatch, lessons]);
 
@@ -85,6 +97,48 @@ const useUpcomingClassesCard = () => {
     setSelectedLessonDate(null);
   };
 
+  const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentDate(event.target.value);
+  };
+
+  const openSnackbar = (message: string, type: 'success' | 'error') => {
+    setSnackbarMessage(message);
+    setSnackbarType(type);
+    setSnackbarOpen(true);
+  };
+
+  const closeSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
+  // const handleReschedule = async () => {
+  //   if (!selectedLessonDate || !currentDate) {
+  //     return;
+  //   }
+
+  //   const formattedCurrentDate = formatDate(currentDate);
+
+  //   if (selectedLesson) {
+  //     const { subjectId, moduleId } = selectedLesson;
+
+  //     try {
+  //       const response = await rescheduleLesson(
+  //         subjectId,
+  //         moduleId,
+  //         formattedCurrentDate,
+  //         selectedLessonDate,
+  //       );
+  //       if (response.success) {
+  //         openSnackbar(response.message, 'success');
+  //       } else {
+  //         openSnackbar(response.message, 'error');
+  //       }
+  //     } catch (error) {
+  //       console.error('Произошла ошибка при переносе', error);
+  //     }
+  //   }
+  // };
+
   return {
     dialogOpen,
     selectedDate,
@@ -92,14 +146,22 @@ const useUpcomingClassesCard = () => {
     scrollRef,
     selectedLessonDate,
     currentDate,
+    snackbarOpen,
+    snackbarMessage,
+    snackbarType,
+    status,
     setDialogOpen,
     setSelectedLessonDate,
     parseDate,
     handleScroll,
     handleClickCard,
-    hasHomework,
+    hasHomeworkOnDate,
     handleOpenDialog,
     handleCloseDialog,
+    handleChangeDate,
+    // handleReschedule,
+    openSnackbar,
+    closeSnackbar,
   };
 };
 

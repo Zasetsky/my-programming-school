@@ -14,15 +14,19 @@ import {
   DialogTitle,
   TextField,
   Skeleton,
+  Snackbar,
 } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import '../../assets/styles/components/homework/upcoming-classes-card.scss';
 
-const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
-  isLoading,
-}) => {
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const UpcomingClassesCard: React.FC = () => {
   const {
     dialogOpen,
     selectedDate,
@@ -30,24 +34,31 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
     scrollRef,
     selectedLessonDate,
     currentDate,
+    snackbarOpen,
+    snackbarMessage,
+    snackbarType,
+    status,
     parseDate,
     handleScroll,
     handleClickCard,
-    hasHomework,
+    hasHomeworkOnDate,
     handleOpenDialog,
     handleCloseDialog,
+    handleChangeDate,
+    // handleReschedule,
+    closeSnackbar,
   } = useUpcomingClassesCard();
 
   return (
     <div className="upcoming-classes-card__controls">
-      {isLoading ? (
+      {status === 'loading' ? (
         // Показать заглушки, если данные загружаются
         <>
           <Skeleton variant="text" width={60} height={36} />{' '}
           {/* Кнопка "Влево" */}
           <div className="upcoming-classes-card__scroll-container">
             {/* Итерируемся несколько раз для создания скелетонов карточек */}
-            {[1, 2, 3, 4, 5].map((_, index) => (
+            {[1, 2, 3, 4].map((_, index) => (
               <Skeleton
                 key={index}
                 variant="rectangular"
@@ -67,10 +78,11 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
             className="upcoming-classes-card__scroll-container"
           >
             {uniqueLessons.map((lesson, index) => {
-              const date = parseDate(lesson.lessonDate);
+              const date = parseDate(lesson.lesson_date);
               const dayOfWeek = date.toLocaleString('ru', { weekday: 'short' });
               const dayOfMonth = date.getDate();
-              const isActive = lesson.lessonDate === selectedDate;
+              const isActive = lesson.lesson_date === selectedDate;
+              const showBookmark = hasHomeworkOnDate(lesson.lesson_date);
 
               return (
                 <Card
@@ -78,12 +90,12 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
                   className={`upcoming-classes-card__card ${
                     isActive ? 'active' : ''
                   }`}
-                  onClick={() => handleClickCard(lesson.lessonDate)}
+                  onClick={() => handleClickCard(lesson.lesson_date)}
                 >
                   <CardContent className="upcoming-classes-card__card-content">
                     <Typography variant="h3">{dayOfMonth}</Typography>
                     <Typography variant="body1">{dayOfWeek}</Typography>
-                    {hasHomework(lesson.lessonDate) && (
+                    {showBookmark && (
                       <Tooltip
                         title="В этот день есть домашнее задание"
                         classes={{ tooltip: 'danger' }}
@@ -120,7 +132,7 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
                         onMouseOut={(e) => {
                           e.currentTarget.style.color = 'inherit'; // Цвет при отведении курсора
                         }}
-                        onClick={() => handleOpenDialog(lesson.lessonDate)}
+                        onClick={() => handleOpenDialog(lesson.lesson_date)}
                       />
                     </Tooltip>
                   </CardContent>
@@ -138,6 +150,7 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
               </DialogContentText>
               <TextField
                 value={currentDate}
+                onChange={handleChangeDate}
                 autoFocus
                 margin="dense"
                 type="date"
@@ -149,11 +162,22 @@ const UpcomingClassesCard: React.FC<{ isLoading: boolean }> = ({
               <Button onClick={handleCloseDialog} color="primary">
                 Отмена
               </Button>
-              <Button color="primary">Сохранить</Button>
+              {/* <Button color="primary" onClick={handleReschedule}>
+                Сохранить
+              </Button> */}
             </DialogActions>
           </Dialog>
         </>
       )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={closeSnackbar}
+      >
+        <Alert onClose={closeSnackbar} severity={snackbarType}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

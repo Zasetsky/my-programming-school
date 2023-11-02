@@ -19,7 +19,7 @@ const HomeworkPage: React.FC = () => {
     word,
     homeworksCountForSelectedDate,
     showCalendar,
-    isLoading,
+    status,
     toggleCalendar,
   } = useHomeworkPage();
 
@@ -45,7 +45,7 @@ const HomeworkPage: React.FC = () => {
       <div className="homework-page__content">
         <div className="homework-page__calendar">
           <div className="homework-page__calendar-month">
-            {isLoading ? (
+            {status === 'loading' ? (
               <>
                 <Skeleton
                   variant="text"
@@ -68,7 +68,7 @@ const HomeworkPage: React.FC = () => {
             )}
           </div>
 
-          {isLoading ? (
+          {status === 'loading' ? (
             <Skeleton variant="circular" width={40} height={40} />
           ) : (
             <div
@@ -81,8 +81,8 @@ const HomeworkPage: React.FC = () => {
             </div>
           )}
         </div>
-        <UpcomingClassesCard isLoading={isLoading} />
-        <HomeworkCard showCalendar={showCalendar} isLoading={isLoading} />
+        <UpcomingClassesCard />
+        <HomeworkCard showCalendar={showCalendar} />
       </div>
     </div>
   );
