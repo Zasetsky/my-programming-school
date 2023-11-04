@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Subject } from './types';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Module, Subject } from './types';
 import { useNavigate } from 'react-router-dom';
-import {
-  selectModules,
-  fetchModulesForSubject,
-} from '../../slices/modulesSlice';
+import { getModulesForSubject } from '../../api/modulesAPI';
 import { AppDispatch } from '../../redux/store';
 
 import {
@@ -24,13 +21,22 @@ interface SubjectCardProps {
 const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const modules = useSelector(selectModules);
+  const [modules, setModules] = useState<Module[] | undefined>(undefined);
+  const [isLoading, toggleIsLoading] = useState(false);
 
   const lastModule =
-    modules.length > 0 ? modules[modules.length - 1] : undefined;
+    modules && modules.length > 0 ? modules[modules.length - 1] : undefined;
 
   const shouldShowNextLesson =
     lastModule && lastModule.status === 'paid' && lastModule.next_lesson_date; // Добавить логику для проверки, что дата не равна прошлому
+
+  const fetchModulesFromServer = async () => {
+    toggleIsLoading(true);
+    const response = await getModulesForSubject(subject.id);
+    toggleIsLoading(false);
+
+    setModules(response.data.modules);
+  };
 
   const handleDetailsClick = () => {
     const uniqueID = localStorage.getItem('uniqueID') || '';
@@ -39,7 +45,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
 
   useEffect(() => {
     if (subject) {
-      dispatch(fetchModulesForSubject(subject.id));
+      dispatch(fetchModulesFromServer);
     }
   }, []);
 
@@ -57,7 +63,9 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
           )}
         </div>
 
-        {lastModule ? (
+        {isLoading ? (
+          <LinearProgress style={{ marginBottom: '55px' }} />
+        ) : lastModule ? (
           <div className="subject-card__module">
             <Typography variant="inherit">{lastModule.name}</Typography>
             {lastModule.status === 'unpaid' && (
@@ -87,13 +95,15 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
           </Typography>
         )}
 
-        <Button
-          variant="text"
-          className="subject-card__button"
-          onClick={handleDetailsClick}
-        >
-          Подробнее
-        </Button>
+        {!isLoading && (
+          <Button
+            variant="text"
+            className="subject-card__button"
+            onClick={handleDetailsClick}
+          >
+            Подробнее
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

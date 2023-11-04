@@ -17,6 +17,10 @@
     }
   }
 
+  &__skeletons {
+    width: 50%;
+  }
+
   &__table-header {
     display: flex;
     justify-content: center;
@@ -31,8 +35,9 @@
     width: 49%;
   }
 
-  &__accordion {
+  &__content {
     width: 50%;
+    padding: 5px;
   }
 
   &__info {

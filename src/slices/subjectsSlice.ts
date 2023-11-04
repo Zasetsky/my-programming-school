@@ -73,13 +73,12 @@ const subjectsSlice = createSlice({
   },
 });
 
-export const selectSubjectBySubjectCode = createSelector(
-  (state: RootState) => state.subjects.subjects,
-  (_state: RootState, subjectCode: string) => subjectCode,
-  (subjects, subjectCode) => {
-    return subjects.find((subject) => subject.subject_code === subjectCode);
-  },
-);
+export const selectSubjectBySubjectCode = (subjectCode: string | undefined) =>
+  createSelector(
+    (state: RootState) => state.subjects.subjects,
+    (subjects) =>
+      subjects.find((subject) => subject.subject_code === subjectCode),
+  );
 
 export const selectSubjects = (state: RootState) => state.subjects.subjects;
 

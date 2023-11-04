@@ -20,7 +20,8 @@ const SubjectsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const subjects = useSelector(selectSubjects);
-  const status = useSelector(selectSubjectsStatus);
+  const subjectsStatus = useSelector(selectSubjectsStatus);
+
   // const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const SubjectsPage: React.FC = () => {
       /> */}
 
       <div className="subject-page__cards">
-        {status === 'loading' ? (
+        {subjectsStatus === 'loading' ? (
           <SubjectCardSkeleton />
         ) : subjects.length > 0 ? (
           subjects.map((subject, index) => (
