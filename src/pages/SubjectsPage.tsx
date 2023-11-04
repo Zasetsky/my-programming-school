@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../redux/rootReducer';
 import { AppDispatch } from '../redux/store';
-import { Card, CardContent, CircularProgress, Typography } from '@mui/material';
 // import AddSubjectDialog from '../components/subjects/AddSubjectDialog';
 import SubjectCard from '../components/subjects/SubjectCard';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import BackButton from '../components/BackButton';
-import { fetchSubjectsAsync } from '../slices/subjectsSlice';
+import SubjectCardSkeleton from '../components/subjects/SubjectCardSkeleton';
+import {
+  fetchSubjectsAsync,
+  selectSubjects,
+  selectSubjectsStatus,
+} from '../slices/subjectsSlice';
+
+import { Card, CardContent, Typography } from '@mui/material';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 import '../assets/styles/components/subjects/subject-page.scss';
 
 const SubjectsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const subjects = useSelector((state: RootState) => state.subjects.subjects);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const subjects = useSelector(selectSubjects);
+  const status = useSelector(selectSubjectsStatus);
   // const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    // Предположим, fetchLessons и fetchHomeworks возвращают промисы
-    Promise.all([dispatch(fetchSubjectsAsync())]).then(() => {
-      setIsLoading(false);
-    });
-  }, [dispatch]);
+    dispatch(fetchSubjectsAsync());
+  }, []);
 
   // const handleAddSubject = (name: string) => {
   //   dispatch(addSubject(name));
@@ -45,8 +48,8 @@ const SubjectsPage: React.FC = () => {
       /> */}
 
       <div className="subject-page__cards">
-        {isLoading ? (
-          <CircularProgress sx={{ marginTop: '100px' }} />
+        {status === 'loading' ? (
+          <SubjectCardSkeleton />
         ) : subjects.length > 0 ? (
           subjects.map((subject, index) => (
             <SubjectCard key={index} subject={subject} />

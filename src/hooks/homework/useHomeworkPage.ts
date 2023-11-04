@@ -54,7 +54,7 @@ const useHomeworkPage = () => {
 
   useEffect(() => {
     dispatch(fetchLessons());
-  }, [dispatch]);
+  }, []);
 
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);

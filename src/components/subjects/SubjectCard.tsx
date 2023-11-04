@@ -1,4 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Subject } from './types';
+import { useNavigate } from 'react-router-dom';
+import {
+  selectModules,
+  fetchModulesForSubject,
+} from '../../slices/modulesSlice';
+import { AppDispatch } from '../../redux/store';
+
 import {
   Card,
   CardContent,
@@ -6,9 +15,6 @@ import {
   Button,
   LinearProgress,
 } from '@mui/material';
-import { Subject } from './types';
-import { useNavigate } from 'react-router-dom';
-
 import '../../assets/styles/components/subjects/subject-card.scss';
 
 interface SubjectCardProps {
@@ -17,19 +23,25 @@ interface SubjectCardProps {
 
 const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const modules = useSelector(selectModules);
 
   const lastModule =
-    subject.modules.length > 0
-      ? subject.modules[subject.modules.length - 1]
-      : undefined;
+    modules.length > 0 ? modules[modules.length - 1] : undefined;
 
   const shouldShowNextLesson =
-    lastModule && lastModule.status === 'paid' && lastModule.nextLessonDate; // Добавить логику для проверки, что дата не равна прошлому
+    lastModule && lastModule.status === 'paid' && lastModule.next_lesson_date; // Добавить логику для проверки, что дата не равна прошлому
 
   const handleDetailsClick = () => {
     const uniqueID = localStorage.getItem('uniqueID') || '';
     navigate(`/${subject.subject_code}/${uniqueID}`);
   };
+
+  useEffect(() => {
+    if (subject) {
+      dispatch(fetchModulesForSubject(subject.id));
+    }
+  }, []);
 
   return (
     <Card className="subject-card">
@@ -40,7 +52,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
           </Typography>
           {shouldShowNextLesson && (
             <Typography variant="body2" className="subject-card__next-lesson">
-              Следующий урок: {lastModule?.nextLessonDate}
+              Следующий урок: {lastModule?.next_lesson_date}
             </Typography>
           )}
         </div>
@@ -56,13 +68,13 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
             {lastModule.status === 'paid' && (
               <>
                 <Typography variant="body2" color="textSecondary">
-                  {`Пройдено уроков: ${lastModule.completedLessonCount} из ${lastModule.totalLessonCount}`}
+                  {`Пройдено уроков: ${lastModule.completed_lesson_count} из ${lastModule.total_lesson_count}`}
                 </Typography>
                 <LinearProgress
                   variant="determinate"
                   value={
-                    (lastModule.completedLessonCount /
-                      lastModule.totalLessonCount) *
+                    (lastModule.completed_lesson_count /
+                      lastModule.total_lesson_count) *
                     100
                   }
                 />

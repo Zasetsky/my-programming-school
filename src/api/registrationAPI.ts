@@ -7,6 +7,7 @@ export const submitRegistration = async (formData: {
   role: string;
 }) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL || '';
-  const response = await axios.post(`${baseUrl}/api/register`, formData);
+
+  const response = await axios.post(`${baseUrl}/register`, formData);
   return response.data;
 };

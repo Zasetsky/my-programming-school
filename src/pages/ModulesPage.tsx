@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { Module } from '../components/subjects/types';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
-import { selectModulesBySubjectCode } from '../slices/subjectsSlice';
 import { selectSubjectBySubjectCode } from '../slices/subjectsSlice';
+import { selectModules, fetchModulesForSubject } from '../slices/modulesSlice';
+import { AppDispatch } from '../redux/store';
+
 import {
   Typography,
   Accordion,
@@ -27,21 +29,26 @@ import '../assets/styles/components/subjects/modules-page.scss';
 
 const ModulesPage: React.FC = () => {
   const { subject_code } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [expandedModuleId, setExpandedModuleId] = useState<string | null>(null);
-
-  const modules = useSelector((state: RootState) =>
-    selectModulesBySubjectCode(state, subject_code || ''),
-  );
 
   const subject = useSelector((state: RootState) =>
     selectSubjectBySubjectCode(state, subject_code || ''),
   );
 
+  const modules = useSelector(selectModules);
+
   const handleExpandClick = (id: string, comment: string | null) => {
     if (!comment) return;
     setExpandedModuleId(expandedModuleId === id ? null : id);
   };
+
+  useEffect(() => {
+    if (subject) {
+      dispatch(fetchModulesForSubject(subject.id));
+    }
+  }, []);
 
   return (
     <div className="modules-page">

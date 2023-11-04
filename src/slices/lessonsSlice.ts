@@ -1,18 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../redux/rootReducer';
 import { LessonState } from '../components/homework/types';
-import {
-  fetchAllUserLessons,
-  apiRescheduleLesson,
-  apiSetHomework,
-} from '../api/lessonsApi';
+import * as lessonsAPI from '../api/lessonsAPI';
 
 // Thunk для получения уроков пользователя
 export const fetchLessons = createAsyncThunk(
   'lessons/fetchLessons',
   async () => {
     try {
-      const lessons = await fetchAllUserLessons();
+      const lessons = await lessonsAPI.fetchAllUserLessons();
 
       return lessons;
     } catch (error) {
@@ -33,7 +29,11 @@ export const rescheduleLesson = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const response = await apiRescheduleLesson(lessonId, newDate, newTime);
+      const response = await lessonsAPI.apiRescheduleLesson(
+        lessonId,
+        newDate,
+        newTime,
+      );
       return response;
     } catch (error) {
       return rejectWithValue('Unable to reschedule lesson');
@@ -49,7 +49,7 @@ export const setHomework = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const response = await apiSetHomework(lessonId, homework);
+      const response = await lessonsAPI.apiSetHomework(lessonId, homework);
       return response;
     } catch (error) {
       return rejectWithValue('Unable to set homework');
@@ -85,16 +85,16 @@ const lessonsSlice = createSlice({
       .addCase(fetchLessons.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload as string;
-      })
-      .addCase(rescheduleLesson.fulfilled, (state, action) => {
-        // Обработка успешного переноса урока
-        // Например, обновление времени урока в state
-      })
-      .addCase(setHomework.fulfilled, (state, action) => {
-        // Обработка успешного добавления домашнего задания
-        // Например, обновление домашнего задания урока в state
       });
-    // Добавьте обработку для других состояний, если необходимо
+    //   .addCase(rescheduleLesson.fulfilled, (state, action) => {
+    //     // Обработка успешного переноса урока
+    //     // Например, обновление времени урока в state
+    //   })
+    //   .addCase(setHomework.fulfilled, (state, action) => {
+    //     // Обработка успешного добавления домашнего задания
+    //     // Например, обновление домашнего задания урока в state
+    //   });
+    // // Добавьте обработку для других состояний, если необходимо
   },
 });
 
